@@ -20,7 +20,7 @@ func physics_update(delta):
 func update(delta):
 	update_timers(delta)
 	
-	if(character.is_on_floor()):
+	if(character.is_on_floor() || character.is_inside_wall()):
 		if(jump_buffer_timer > 0):
 			jump_buffer_timer = 0
 			state_machine.change_state("Jump")
@@ -43,7 +43,7 @@ func enter(args: Dictionary = {}):
 func handle_input(event: InputEvent):
 	if(event.is_action_pressed("jump") && coyote_time_timer > 0 ):
 		state_machine.change_state("Jump")
-	if(event.is_action_pressed("jump") && character.is_near_wall()):
+	if(event.is_action_pressed("jump") && character.is_near_wall() && !character.is_inside_wall()):
 		state_machine.change_state("WallJump")
 	elif(event.is_action_pressed("jump")):
 		jump_buffer_timer = jump_buffer

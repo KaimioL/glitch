@@ -12,7 +12,8 @@ class_name GroundState
 var first_tick: bool = false
 
 func update(delta):
-	if(!character.is_on_floor() && !Input.is_action_pressed("glitch_key")):
+	character.velocity.y = 0
+	if(!character.is_on_floor() && !Input.is_action_pressed("glitch_key") && !character.is_inside_wall()):
 		state_machine.change_state("AirFall", {"double_jump": true, "coyote_time": true})
 	if(Input.is_action_pressed("jump")):
 		_jump()

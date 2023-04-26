@@ -30,7 +30,7 @@ func physics_update(delta):
 		character.velocity.y -= character.velocity.y * air_cut
 
 func handle_input(event: InputEvent):
-	if(event.is_action_pressed("jump") && character.is_near_wall()):
+	if(event.is_action_pressed("jump") && character.is_near_wall() && !character.is_inside_wall()):
 		state_machine.change_state("WallJump")
 
 func enter(args: Dictionary = {}):

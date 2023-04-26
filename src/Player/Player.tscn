@@ -255,7 +255,7 @@ graph_offset = Vector2(0, -132.25)
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_oc0s6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5t4tb"]
-size = Vector2(8, 14.5)
+size = Vector2(8, 11)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_dpqox")
@@ -272,7 +272,7 @@ parameters/playback = SubResource("AnimationNodeStateMachinePlayback_oc0s6")
 parameters/move/blend_position = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1.75)
+position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_5t4tb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -326,3 +326,10 @@ target_position = Vector2(5, 0)
 
 [node name="LeftWallRayCast" type="RayCast2D" parent="WallRayCasts"]
 target_position = Vector2(-5, 0)
+
+[node name="InsideWallRayCasts" type="Node2D" parent="."]
+
+[node name="InsideWallRayCast" type="RayCast2D" parent="InsideWallRayCasts"]
+position = Vector2(0, -2)
+target_position = Vector2(0, 11)
+collision_mask = 2
