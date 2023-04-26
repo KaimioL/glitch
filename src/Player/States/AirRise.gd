@@ -13,7 +13,14 @@ class_name AirRiseState
 
 @export var jump_animation: String = "jump"
 
+var lock_movement_timer = 0
+
 func update(delta):
+	update_timers(delta)
+	
+	if(lock_movement_timer < 0):
+		can_move = true
+	
 	if(character.velocity.y > 0):
 		state_machine.change_state("AirFall")
 
@@ -23,10 +30,14 @@ func physics_update(delta):
 		character.velocity.y -= character.velocity.y * air_cut
 
 func handle_input(event: InputEvent):
-	if(event.is_action_pressed("jump") && character.is_on_wall()):
+	if(event.is_action_pressed("jump") && character.is_near_wall()):
 		state_machine.change_state("WallJump")
 
 func enter(args: Dictionary = {}):
+	if(args.has("cant_move")):
+		lock_movement_timer = args['cant_move']
+		can_move = false
+	
 	friction = air_friction
 	acceleration = acceleration_x
 
@@ -42,4 +53,7 @@ func apply_gravitation(delta: float):
 		applied_gravity *= air_hang_gravity_mult
 	
 	character.velocity.y += applied_gravity
+	
+func update_timers(delta: float):
+	lock_movement_timer -= delta
 	

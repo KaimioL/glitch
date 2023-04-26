@@ -4,15 +4,14 @@ class_name State
 
 var can_move: bool = true:
 	set = _set_can_move
-var acceleration: float:
+var acceleration: float = 0:
 	set = _set_acceleration
-var friction: float:
+var friction: float = 0:
 	set = _set_friction
 	
 var character: CharacterBody2D
 var playback: AnimationNodeStateMachinePlayback
 var state_machine: CharacterStateMachine
-var wall_check: RayCast2D 
 
 func update(delta):
 	pass

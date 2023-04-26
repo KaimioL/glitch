@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var state_machine: CharacterStateMachine = $CharacterStateMachine
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var wall_raycasts: Node = $WallRayCasts
 
 var direction: Vector2
 var flipped: bool = false
@@ -79,3 +80,12 @@ func update_velocity(delta):
 		# Stop momentum if direction is not held 
 		if direction.x != sign(velocity.x):
 			velocity.x *= 0.1
+			
+func is_near_wall():
+	for raycast in wall_raycasts.get_children():
+		if raycast.is_colliding():
+			if raycast.name == "LeftWallRayCast":
+				return 1
+			elif raycast.name == "RightWallRayCast":
+				return -1
+	return 0

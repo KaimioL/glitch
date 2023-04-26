@@ -255,7 +255,7 @@ graph_offset = Vector2(0, -132.25)
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_oc0s6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5t4tb"]
-size = Vector2(8, 15)
+size = Vector2(8, 14.5)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_dpqox")
@@ -272,18 +272,19 @@ parameters/playback = SubResource("AnimationNodeStateMachinePlayback_oc0s6")
 parameters/move/blend_position = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 1.5)
+position = Vector2(0, 1.75)
 shape = SubResource("RectangleShape2D_5t4tb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_yve2r")
+offset = Vector2(1, 0)
 hframes = 11
 
-[node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "animation_tree", "wall_check")]
+[node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "animation_tree", "wall_raycasts")]
 script = ExtResource("4_ufc42")
 character = NodePath("..")
 animation_tree = NodePath("../AnimationTree")
-wall_check = NodePath("../WallCheck")
+wall_raycasts = NodePath("")
 initial_state = NodePath("Ground")
 
 [node name="Ground" type="Node" parent="CharacterStateMachine"]
@@ -318,5 +319,10 @@ vertical_alignment = 1
 script = ExtResource("8_btn4v")
 state_machine = NodePath("../CharacterStateMachine")
 
-[node name="WallCheck" type="RayCast2D" parent="."]
+[node name="WallRayCasts" type="Node2D" parent="."]
+
+[node name="RightWallRayCast" type="RayCast2D" parent="WallRayCasts"]
 target_position = Vector2(5, 0)
+
+[node name="LeftWallRayCast" type="RayCast2D" parent="WallRayCasts"]
+target_position = Vector2(-5, 0)

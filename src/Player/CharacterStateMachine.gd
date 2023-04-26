@@ -6,7 +6,7 @@ signal transitioned(state_name)
 
 @export var character: CharacterBody2D
 @export var animation_tree: AnimationTree
-@export var wall_check: RayCast2D
+@export var wall_raycasts: Node
 @export var initial_state:= NodePath()
 
 @onready var state: State = get_node(initial_state)
@@ -29,7 +29,6 @@ func _ready():
 			child.state_machine = self
 			child.character = character
 			child.playback = animation_tree["parameters/playback"]
-			child.wall_check = wall_check
 		else:
 			push_warning("Child " + child.name + " is not a State for CharacterStateMachine")
 

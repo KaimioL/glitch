@@ -43,7 +43,7 @@ func enter(args: Dictionary = {}):
 func handle_input(event: InputEvent):
 	if(event.is_action_pressed("jump") && coyote_time_timer > 0 ):
 		state_machine.change_state("Jump")
-	elif(event.is_action_pressed("jump") && character.is_on_wall()):
+	if(event.is_action_pressed("jump") && character.is_near_wall()):
 		state_machine.change_state("WallJump")
 	elif(event.is_action_pressed("jump")):
 		jump_buffer_timer = jump_buffer
