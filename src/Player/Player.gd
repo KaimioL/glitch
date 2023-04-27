@@ -1,16 +1,18 @@
 extends CharacterBody2D
 
-@export var max_speed: float = 150.0
+@export var max_speed: float = 90.0
 
 @onready var animation_tree:  AnimationTree = $AnimationTree
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var state_machine: CharacterStateMachine = $CharacterStateMachine
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var collision_shape: CollisionShape2D = $NormalCollisionShape
+@onready var crouch_collision_shape: CollisionShape2D = $CrouchCollisionShape
 @onready var wall_raycasts: Node2D = $WallRayCasts
 @onready var inside_wall_raycasts: Node2D = $InsideWallRayCasts
 
 var direction: Vector2
 var flipped: bool = false
+var crouching: bool = false
 
 var previous_direction: float = 0
 var starting_pos: Vector2
@@ -22,7 +24,6 @@ func _ready():
 	starting_pos = position
 
 func _physics_process(delta):
-	print(collision_shape.disabled)
 	update_velocity(delta)
 	update_facing_direction()
 	move_and_slide()
@@ -35,12 +36,13 @@ func _process(delta):
 		position = starting_pos
 	
 	if(Input.is_action_pressed("glitch_key") || is_inside_wall()):
-		collision_shape.disabled = true
+		disable_collision_shapes()
 	else:
-		collision_shape.disabled = false
+		enable_collision_shapes()
 
 func update_animation() -> void:
 	animation_tree.set("parameters/move/blend_position", direction.x)
+	animation_tree.set("parameters/crouch/blend_position", direction.x)	
 
 func update_facing_direction() -> void:
 	if(direction.x > 0 && flipped):
@@ -94,3 +96,15 @@ func is_inside_wall() -> bool:
 		if raycast.is_colliding():
 			return true
 	return false
+
+func disable_collision_shapes() -> void:
+	collision_shape.disabled = true
+	crouch_collision_shape.disabled = true
+		
+func enable_collision_shapes() -> void:
+	if crouching:
+		collision_shape.disabled = true
+		crouch_collision_shape.disabled = false
+	else:
+		collision_shape.disabled = false
+		crouch_collision_shape.disabled = true
