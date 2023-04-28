@@ -23,6 +23,7 @@ func update(delta):
 		state_machine.change_state("AirFall", {"double_jump": true, "coyote_time": true})
 
 func enter(args: Dictionary = {}):
+	$CrouchAudio.play()
 	playback.travel(crouch_animation)
 	character.crouching = true
 	

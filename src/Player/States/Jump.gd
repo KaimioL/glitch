@@ -9,6 +9,7 @@ func update(delta):
 	state_machine.change_state("AirRise")
 
 func enter(args: Dictionary = {}):
+	$JumpAudio.play()
 	playback.travel(jump_animation)
 	
 	character.velocity.y = -jump_velocity

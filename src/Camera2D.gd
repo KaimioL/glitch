@@ -7,6 +7,8 @@ extends Camera2D
 var window_size = Vector2(256, 224)
 
 func _ready():
+	$Music.play()
+	
 	var canvas_transform = get_viewport().get_canvas_transform()
 	canvas_transform[2] = player_world_pos * window_size
 
@@ -27,5 +29,9 @@ func update_camera():
 	
 	if new_player_grid_pos != player_world_pos:
 		player_world_pos = new_player_grid_pos
+		if(player_world_pos == Vector2(3, 1)):
+			$VictoryFanfare.play()
+			$RichTextLabel.visible = true
 		position = player_world_pos * window_size
+	
 	

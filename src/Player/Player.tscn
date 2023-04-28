@@ -1,10 +1,11 @@
-[gd_scene load_steps=50 format=3 uid="uid://pemxecqsmnal"]
+[gd_scene load_steps=52 format=3 uid="uid://pemxecqsmnal"]
 
 [ext_resource type="Script" path="res://src/Player/Player.gd" id="1_dpqox"]
 [ext_resource type="Texture2D" uid="uid://bv800yfpgxyl3" path="res://assets/player/character_air_fall-Sheet.png" id="2_jkj8k"]
 [ext_resource type="Texture2D" uid="uid://bo43f1ebxw576" path="res://assets/player/character_idle-Sheet.png" id="3_yve2r"]
 [ext_resource type="Texture2D" uid="uid://dwfk042ye8qsv" path="res://assets/player/character_air_rise-Sheet.png" id="4_510bw"]
 [ext_resource type="Script" path="res://src/Player/CharacterStateMachine.gd" id="4_ufc42"]
+[ext_resource type="AudioStream" uid="uid://ctctsbt804chw" path="res://assets/player/sounds/jump_audio.wav" id="5_dbtj5"]
 [ext_resource type="Texture2D" uid="uid://blsalxly2xqdl" path="res://assets/player/character_walk-Sheet.png" id="5_u2onb"]
 [ext_resource type="Texture2D" uid="uid://kxm3k5uu7w3e" path="res://assets/player/character_crouch_idle.png" id="6_hk8ye"]
 [ext_resource type="Texture2D" uid="uid://dmqgjdrlnqkr2" path="res://assets/player/character_crouch_walk-Sheet.png" id="7_1p1ty"]
@@ -17,6 +18,7 @@
 [ext_resource type="Script" path="res://src/Player/States/WallJump.gd" id="12_dmqsq"]
 [ext_resource type="Script" path="res://src/Player/States/AirRise.gd" id="13_0647l"]
 [ext_resource type="Script" path="res://src/Player/States/Crouch.gd" id="14_ick1t"]
+[ext_resource type="AudioStream" uid="uid://doxhrsetc25eh" path="res://assets/player/sounds/crouch_audio.wav" id="18_ugl33"]
 
 [sub_resource type="Animation" id="Animation_3iklj"]
 length = 0.001
@@ -31,6 +33,88 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_6s7xs"]
+resource_name = "crouch_idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_hk8ye")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_biwy1"]
+resource_name = "crouch_walk"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_1p1ty")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
 }
 
 [sub_resource type="Animation" id="Animation_qc4l8"]
@@ -155,6 +239,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("CharacterStateMachine/Jump/JumpAudio:stream")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_dbtj5")]
+}
 
 [sub_resource type="Animation" id="Animation_1bkcf"]
 resource_name = "run"
@@ -171,88 +267,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [ExtResource("5_u2onb")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_6s7xs"]
-resource_name = "crouch_idle"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("6_hk8ye")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_biwy1"]
-resource_name = "crouch_walk"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("7_1p1ty")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -420,6 +434,9 @@ script = ExtResource("9_1e1vf")
 script = ExtResource("10_t105k")
 jump_velocity = 330.0
 
+[node name="JumpAudio" type="AudioStreamPlayer" parent="CharacterStateMachine/Jump"]
+stream = ExtResource("5_dbtj5")
+
 [node name="WallCling" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("11_kq5ip")
 
@@ -434,7 +451,12 @@ script = ExtResource("14_ick1t")
 crouch_collision_shape = NodePath("../../CrouchCollisionShape")
 normal_collision_shape = NodePath("../../NormalCollisionShape")
 
+[node name="CrouchAudio" type="AudioStreamPlayer" parent="CharacterStateMachine/Crouch"]
+stream = ExtResource("18_ugl33")
+volume_db = 2.506
+
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
+visible = false
 offset_left = -44.0
 offset_top = -35.0
 offset_right = 45.0
@@ -455,8 +477,13 @@ target_position = Vector2(-5, 0)
 
 [node name="InsideWallRayCasts" type="Node2D" parent="."]
 
-[node name="InsideWallRayCast" type="RayCast2D" parent="InsideWallRayCasts"]
-position = Vector2(0, -2)
+[node name="InsideWallRayCastLeft" type="RayCast2D" parent="InsideWallRayCasts"]
+position = Vector2(-4, -2)
+target_position = Vector2(0, 11)
+collision_mask = 2
+
+[node name="InsideWallRayCastRight" type="RayCast2D" parent="InsideWallRayCasts"]
+position = Vector2(4, -2)
 target_position = Vector2(0, 11)
 collision_mask = 2
 
