@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://jkn60we3c8sb"]
+
+[ext_resource type="Shader" path="res://src/Tiles/TileShader.gdshader" id="1_xxx28"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iysuh"]
+shader = ExtResource("1_xxx28")
+
+[node name="TileShader" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_iysuh")
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
