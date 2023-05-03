@@ -390,6 +390,8 @@ size = Vector2(8, 11)
 size = Vector2(8, 7)
 
 [node name="Player" type="CharacterBody2D"]
+floor_stop_on_slope = false
+floor_snap_length = 10.0
 script = ExtResource("1_dpqox")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
