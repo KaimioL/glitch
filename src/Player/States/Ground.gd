@@ -8,32 +8,30 @@ class_name GroundState
 
 @export var move_animation: String = "move"
 
-var first_tick: bool = false
-
 func update(delta):
+	
+	
 	character.velocity.y = 0
 	if(!character.is_on_floor() && !Input.is_action_pressed("glitch_key") && !character.is_inside_wall()):
 		state_machine.change_state("AirFall", {"double_jump": true, "coyote_time": true})
 	
-	if(Input.is_action_pressed("jump")):
-		_jump()
+	if(Input.is_action_pressed("down")):
+		_crouch()
+	
+#	if(Input.is_action_pressed("jump")):
+#		_jump()
 
 func physics_update(delta):
-	if(first_tick):
-		first_tick = false
-	else:
-		friction = normal_friction
+	friction = normal_friction
 
 func handle_input(event: InputEvent):
 	if(event.is_action_pressed("jump")):
 		_jump()
 		
-	if(event.is_action_pressed("down")):
-		_crouch()
-		
+#	if(event.is_action_pressed("down")):
+#		_crouch()
 
 func enter(args: Dictionary = {}):
-	friction = start_friction
 	acceleration = ground_acceleration
 	playback.travel(move_animation)
 

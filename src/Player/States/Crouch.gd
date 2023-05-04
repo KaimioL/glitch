@@ -37,7 +37,7 @@ func exit():
 	_scale_character_nodes(-1)
 	
 func _scale_character_nodes(direction: int):
-	character.sprite.offset.y += direction * crouch_offset
+#	character.sprite.offset.y += direction * crouch_offset
 	for raycast in character.inside_wall_raycasts.get_children():
 		raycast.target_position.y -= direction * crouch_offset
 		raycast.position.y += direction * crouch_offset

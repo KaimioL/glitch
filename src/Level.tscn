@@ -55,7 +55,7 @@ stream = ExtResource("5_aga07")
 
 [node name="Music" type="AudioStreamPlayer" parent="Camera2D"]
 stream = ExtResource("6_4g1qi")
-volume_db = -11.277
+volume_db = -80.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Camera2D"]
 visible = false

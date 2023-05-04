@@ -5,7 +5,7 @@ class_name AirFallState
 @export var fall_acceleration: float = 1200
 @export var fall_velocity_max: float = 2000
 @export var coyote_time: float = 0.1
-@export var jump_buffer: float = 0.2
+@export var jump_buffer: float = 0.08
 @export var air_friction = 0.99
 @export var acceleration_x = 10
 
@@ -21,11 +21,7 @@ func update(delta):
 	update_timers(delta)
 	
 	if(character.is_on_floor() || character.is_inside_wall()):
-		if(jump_buffer_timer > 0):
-			jump_buffer_timer = 0
-			state_machine.change_state("Jump")
-		else:
-			state_machine.change_state("Ground")
+		state_machine.change_state("Landing", {"jump_buffer": jump_buffer_timer})
 
 func enter(args: Dictionary = {}):
 	playback.travel(fall_animation)
