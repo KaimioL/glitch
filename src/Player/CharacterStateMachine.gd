@@ -22,6 +22,10 @@ var acceleration: float:
 var friction: float:
 	get:
 		return state.friction
+		
+var max_speed: float:
+	get:
+		return state.max_speed
 
 func _ready():
 	for child in get_children():

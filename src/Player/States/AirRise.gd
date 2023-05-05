@@ -2,6 +2,7 @@ extends State
 
 class_name AirRiseState
 
+@export var air_max_speed: float = 90
 @export var air_acceleration: float = 800
 @export var air_velocity: float = 1400
 @export var air_velocity_max: float = 500
@@ -40,6 +41,7 @@ func enter(args: Dictionary = {}):
 	
 	friction = air_friction
 	acceleration = acceleration_x
+	max_speed = air_max_speed
 
 func apply_gravitation(delta: float):
 	var applied_gravity: float = 0

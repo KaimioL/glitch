@@ -8,6 +8,8 @@ var acceleration: float = 0:
 	set = _set_acceleration
 var friction: float = 0:
 	set = _set_friction
+var max_speed: float = 0:
+	set = _set_max_speed
 	
 var character: CharacterBody2D
 var playback: AnimationNodeStateMachinePlayback
@@ -36,3 +38,6 @@ func _set_friction(s: float):
 	
 func _set_acceleration(s: float):
 	acceleration = s
+	
+func _set_max_speed(s: float):
+	max_speed = s

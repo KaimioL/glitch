@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-@export var max_speed: float = 90.0
-
 @onready var animation_tree:  AnimationTree = $AnimationTree
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var state_machine: CharacterStateMachine = $CharacterStateMachine
@@ -58,8 +56,13 @@ func update_velocity(delta) -> void:
 	var friction = state_machine.friction
 	var acceleration = state_machine.acceleration
 	var can_move = state_machine.can_move
+	var max_speed = state_machine.max_speed
 	
 	direction.x = Input.get_axis("left", "right")
+	
+	# Slow down if velocity is over max speed
+	if(max_speed < abs(velocity.x)):
+		velocity.x = sign(velocity.x) * max_speed
 	
 	if(can_move):
 		if direction.x:
@@ -70,10 +73,6 @@ func update_velocity(delta) -> void:
 			if(direction.x != previous_direction && previous_direction != 0):
 				velocity.x *= friction
 			previous_direction = direction.x
-			
-		# Apply friction if nothing is hold or speed is over speed limit
-		elif(max_speed < abs(velocity.x)):
-			velocity.x = max(velocity.x * friction, sign(velocity.x) * max_speed)
 		
 		else:
 			velocity.x *= friction

@@ -5,7 +5,7 @@ class_name CrouchState
 @export var crouch_offset: int = 4
 @export var crouch_friction: float = 0.1
 @export var crouch_acceleration: float = 40
-
+@export var crouch_max_speed: float = 45
 @export var crouch_animation: String = "crouch"
 @export var crouch_collision_shape: CollisionShape2D
 @export var normal_collision_shape: CollisionShape2D
@@ -31,6 +31,7 @@ func enter(args: Dictionary = {}):
 	
 	acceleration = crouch_acceleration
 	friction = crouch_friction
+	max_speed = crouch_max_speed
 	
 func exit():
 	character.crouching = false

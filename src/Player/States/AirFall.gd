@@ -2,8 +2,9 @@ extends State
 
 class_name AirFallState
 
+@export var fall_max_speed: float = 90
 @export var fall_acceleration: float = 1200
-@export var fall_velocity_max: float = 2000
+@export var fall_velocity_max: float = 1000
 @export var coyote_time: float = 0.1
 @export var jump_buffer: float = 0.08
 @export var air_friction = 0.99
@@ -28,7 +29,8 @@ func enter(args: Dictionary = {}):
 	
 	friction = air_friction
 	acceleration = acceleration_x
-	
+	max_speed = fall_max_speed
+		
 	if(args.has('coyote_time')):    
 		if(args['coyote_time']):
 			coyote_time_timer = coyote_time
