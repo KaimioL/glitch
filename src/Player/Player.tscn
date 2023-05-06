@@ -1,26 +1,26 @@
-[gd_scene load_steps=56 format=3 uid="uid://pemxecqsmnal"]
+[gd_scene load_steps=56 format=3 uid="uid://cpjobmcjkf7i7"]
 
-[ext_resource type="Script" path="res://src/Player/Player.gd" id="1_dpqox"]
-[ext_resource type="Texture2D" uid="uid://bv800yfpgxyl3" path="res://assets/player/character_air_fall-Sheet.png" id="2_jkj8k"]
-[ext_resource type="Texture2D" uid="uid://bo43f1ebxw576" path="res://assets/player/character_idle-Sheet.png" id="3_yve2r"]
-[ext_resource type="Texture2D" uid="uid://dwfk042ye8qsv" path="res://assets/player/character_air_rise-Sheet.png" id="4_510bw"]
-[ext_resource type="Script" path="res://src/Player/CharacterStateMachine.gd" id="4_ufc42"]
-[ext_resource type="AudioStream" uid="uid://ctctsbt804chw" path="res://assets/player/sounds/jump_audio.wav" id="5_dbtj5"]
-[ext_resource type="Texture2D" uid="uid://blsalxly2xqdl" path="res://assets/player/character_walk-Sheet.png" id="5_u2onb"]
-[ext_resource type="Texture2D" uid="uid://kxm3k5uu7w3e" path="res://assets/player/character_crouch_idle.png" id="6_hk8ye"]
-[ext_resource type="Texture2D" uid="uid://dmqgjdrlnqkr2" path="res://assets/player/character_crouch_walk-Sheet.png" id="7_1p1ty"]
-[ext_resource type="Script" path="res://src/Player/States/Ground.gd" id="7_nb0n6"]
-[ext_resource type="Script" path="res://src/Player/StateDebugLabel.gd" id="8_btn4v"]
-[ext_resource type="Script" path="res://src/Player/States/AirFall.gd" id="9_1e1vf"]
-[ext_resource type="Shader" path="res://src/palette_swap.gdshader" id="9_j22ur"]
-[ext_resource type="Script" path="res://src/Player/States/Landing.gd" id="9_s57yn"]
-[ext_resource type="Texture2D" uid="uid://cn0thd3rcxpji" path="res://assets/palettes/player_pal.png" id="10_8u037"]
-[ext_resource type="Script" path="res://src/Player/States/Jump.gd" id="10_t105k"]
-[ext_resource type="Script" path="res://src/Player/States/WallCling.gd" id="11_kq5ip"]
-[ext_resource type="Script" path="res://src/Player/States/WallJump.gd" id="12_dmqsq"]
-[ext_resource type="Script" path="res://src/Player/States/AirRise.gd" id="13_0647l"]
-[ext_resource type="Script" path="res://src/Player/States/Crouch.gd" id="14_ick1t"]
-[ext_resource type="AudioStream" uid="uid://doxhrsetc25eh" path="res://assets/player/sounds/crouch_audio.wav" id="18_ugl33"]
+[ext_resource type="Script" path="res://src/player/player.gd" id="1_vuwqi"]
+[ext_resource type="Texture2D" uid="uid://kxm3k5uu7w3e" path="res://assets/player/character_crouch_idle.png" id="2_hmmw1"]
+[ext_resource type="Texture2D" uid="uid://dmqgjdrlnqkr2" path="res://assets/player/character_crouch_walk-Sheet.png" id="3_g5omh"]
+[ext_resource type="Texture2D" uid="uid://bv800yfpgxyl3" path="res://assets/player/character_air_fall-Sheet.png" id="4_v8g8i"]
+[ext_resource type="Texture2D" uid="uid://bo43f1ebxw576" path="res://assets/player/character_idle-Sheet.png" id="5_etqph"]
+[ext_resource type="Texture2D" uid="uid://dwfk042ye8qsv" path="res://assets/player/character_air_rise-Sheet.png" id="6_eyecu"]
+[ext_resource type="AudioStream" uid="uid://ctctsbt804chw" path="res://assets/player/sounds/jump_audio.wav" id="7_kp5wv"]
+[ext_resource type="Texture2D" uid="uid://blsalxly2xqdl" path="res://assets/player/character_walk-Sheet.png" id="8_doy2i"]
+[ext_resource type="Shader" path="res://src/palette_swap.gdshader" id="9_eftcn"]
+[ext_resource type="Texture2D" uid="uid://cn0thd3rcxpji" path="res://assets/palettes/player_pal.png" id="10_lfl31"]
+[ext_resource type="Script" path="res://src/player/character_state_machine.gd" id="11_0vxvk"]
+[ext_resource type="Script" path="res://src/player/States/ground.gd" id="12_ey6ry"]
+[ext_resource type="Script" path="res://src/player/States/crouch.gd" id="13_ibjq3"]
+[ext_resource type="AudioStream" uid="uid://doxhrsetc25eh" path="res://assets/player/sounds/crouch_audio.wav" id="14_ef6aq"]
+[ext_resource type="Script" path="res://src/player/States/jump.gd" id="15_cno84"]
+[ext_resource type="Script" path="res://src/player/States/landing.gd" id="16_q0aoi"]
+[ext_resource type="Script" path="res://src/player/States/air_fall.gd" id="17_fvdrm"]
+[ext_resource type="Script" path="res://src/player/States/air_rise.gd" id="18_quq44"]
+[ext_resource type="Script" path="res://src/player/States/wall_jump.gd" id="19_cft6q"]
+[ext_resource type="Script" path="res://src/player/States/walll_cling.gd" id="20_0ya40"]
+[ext_resource type="Script" path="res://src/player/state_debug_label.gd" id="21_hwbns"]
 
 [sub_resource type="Animation" id="Animation_3iklj"]
 length = 0.001
@@ -51,7 +51,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_hk8ye")]
+"values": [ExtResource("2_hmmw1")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -92,7 +92,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_1p1ty")]
+"values": [ExtResource("3_g5omh")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -133,7 +133,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_jkj8k")]
+"values": [ExtResource("4_v8g8i")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -174,7 +174,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_yve2r")]
+"values": [ExtResource("5_etqph")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -215,7 +215,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_510bw")]
+"values": [ExtResource("6_eyecu")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -251,7 +251,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_dbtj5")]
+"values": [ExtResource("7_kp5wv")]
 }
 
 [sub_resource type="Animation" id="Animation_1bkcf"]
@@ -268,7 +268,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_u2onb")]
+"values": [ExtResource("8_doy2i")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -394,14 +394,14 @@ size = Vector2(8, 11)
 size = Vector2(8, 7)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mllsx"]
-shader = ExtResource("9_j22ur")
-shader_parameter/palette = ExtResource("10_8u037")
+shader = ExtResource("9_eftcn")
+shader_parameter/palette = ExtResource("10_lfl31")
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -9)
 floor_stop_on_slope = false
 floor_snap_length = 10.0
-script = ExtResource("1_dpqox")
+script = ExtResource("1_vuwqi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -427,60 +427,59 @@ disabled = true
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_mllsx")
 position = Vector2(0, 9)
-texture = ExtResource("3_yve2r")
+texture = ExtResource("5_etqph")
 offset = Vector2(0, -16)
 hframes = 11
 
 [node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "animation_tree", "wall_raycasts")]
-script = ExtResource("4_ufc42")
+script = ExtResource("11_0vxvk")
 character = NodePath("..")
 animation_tree = NodePath("../AnimationTree")
 wall_raycasts = NodePath("")
 initial_state = NodePath("Ground")
 
 [node name="Ground" type="Node" parent="CharacterStateMachine"]
-script = ExtResource("7_nb0n6")
+script = ExtResource("12_ey6ry")
 
 [node name="Crouch" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("crouch_collision_shape", "normal_collision_shape")]
-script = ExtResource("14_ick1t")
+script = ExtResource("13_ibjq3")
 crouch_collision_shape = NodePath("../../CrouchCollisionShape")
 normal_collision_shape = NodePath("../../NormalCollisionShape")
 
 [node name="CrouchAudio" type="AudioStreamPlayer" parent="CharacterStateMachine/Crouch"]
-stream = ExtResource("18_ugl33")
+stream = ExtResource("14_ef6aq")
 volume_db = 2.506
 
 [node name="Jump" type="Node" parent="CharacterStateMachine"]
-script = ExtResource("10_t105k")
+script = ExtResource("15_cno84")
 jump_velocity = 330.0
 
 [node name="JumpAudio" type="AudioStreamPlayer" parent="CharacterStateMachine/Jump"]
-stream = ExtResource("5_dbtj5")
+stream = ExtResource("7_kp5wv")
 
 [node name="Landing" type="Node" parent="CharacterStateMachine"]
-script = ExtResource("9_s57yn")
+script = ExtResource("16_q0aoi")
 
 [node name="AirFall" type="Node" parent="CharacterStateMachine"]
-script = ExtResource("9_1e1vf")
+script = ExtResource("17_fvdrm")
 
 [node name="AirRise" type="Node" parent="CharacterStateMachine"]
-script = ExtResource("13_0647l")
+script = ExtResource("18_quq44")
 
 [node name="WallJump" type="Node" parent="CharacterStateMachine"]
-script = ExtResource("12_dmqsq")
+script = ExtResource("19_cft6q")
 
 [node name="WallCling" type="Node" parent="CharacterStateMachine"]
-script = ExtResource("11_kq5ip")
+script = ExtResource("20_0ya40")
 
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
-visible = false
 offset_left = -44.0
 offset_top = -35.0
 offset_right = 45.0
 offset_bottom = -9.0
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("8_btn4v")
+script = ExtResource("21_hwbns")
 state_machine = NodePath("../CharacterStateMachine")
 
 [node name="WallRayCasts" type="Node2D" parent="."]

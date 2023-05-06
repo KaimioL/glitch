@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgk2llf0olncd"]
+
+[ext_resource type="Script" path="res://src/room_controller.gd" id="1_7cxt0"]
+
+[node name="Room" type="Node2D"]
+script = ExtResource("1_7cxt0")
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2

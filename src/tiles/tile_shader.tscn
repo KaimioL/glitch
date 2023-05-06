@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://jkn60we3c8sb"]
+[gd_scene load_steps=3 format=3 uid="uid://3ft6x0dq2nlf"]
 
-[ext_resource type="Shader" path="res://src/Tiles/TileShader.gdshader" id="1_xxx28"]
+[ext_resource type="Shader" path="res://src/tiles/tile_shader.gdshader" id="1_0a6we"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iysuh"]
-shader = ExtResource("1_xxx28")
+shader = ExtResource("1_0a6we")
 
 [node name="TileShader" type="Node2D"]
 

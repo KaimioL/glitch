@@ -2,7 +2,7 @@ extends State
 
 class_name AirFallState
 
-@export var fall_max_speed: float = 90
+@export var fall_max_speed: float = 120
 @export var fall_acceleration: float = 1200
 @export var fall_velocity_max: float = 1000
 @export var coyote_time: float = 0.1

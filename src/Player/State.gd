@@ -4,11 +4,11 @@ class_name State
 
 var can_move: bool = true:
 	set = _set_can_move
-var acceleration: float = 0:
+var acceleration: float = 40:
 	set = _set_acceleration
-var friction: float = 0:
+var friction: float = 1:
 	set = _set_friction
-var max_speed: float = 0:
+var max_speed: float = 90:
 	set = _set_max_speed
 	
 var character: CharacterBody2D
