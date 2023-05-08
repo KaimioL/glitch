@@ -1,0 +1,39 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvr5h2odimes2"]
+
+[ext_resource type="PackedScene" uid="uid://dgjlic5bywapv" path="res://src/areas/test_area/0.tscn" id="1_tj8xd"]
+[ext_resource type="PackedScene" uid="uid://b77g5a7p1o2no" path="res://src/areas/test_area/1.tscn" id="2_gtkla"]
+[ext_resource type="PackedScene" uid="uid://chvgqns3hmbhf" path="res://src/areas/test_area/2.tscn" id="3_h7kff"]
+[ext_resource type="PackedScene" uid="uid://bblv1ko3vwblp" path="res://src/areas/test_area/3.tscn" id="4_iioy5"]
+[ext_resource type="PackedScene" uid="uid://c3nud25vsquht" path="res://src/areas/test_area/4.tscn" id="5_673v1"]
+[ext_resource type="PackedScene" uid="uid://dwyiab5n32rpu" path="res://src/areas/test_area/5.tscn" id="5_utmoe"]
+[ext_resource type="PackedScene" uid="uid://x0h7deahx6dv" path="res://src/areas/test_area/6.tscn" id="7_uhwvi"]
+[ext_resource type="PackedScene" uid="uid://ba2f30fccqvkq" path="res://src/areas/test_area/7.tscn" id="8_yrdku"]
+[ext_resource type="PackedScene" uid="uid://bwkrdafw575c1" path="res://src/areas/test_area/8.tscn" id="9_qqylf"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Room" parent="." instance=ExtResource("1_tj8xd")]
+
+[node name="Room2" parent="." instance=ExtResource("2_gtkla")]
+position = Vector2(256, 0)
+
+[node name="Room3" parent="." instance=ExtResource("3_h7kff")]
+position = Vector2(512, 0)
+
+[node name="Room4" parent="." instance=ExtResource("4_iioy5")]
+position = Vector2(0, 224)
+
+[node name="Room5" parent="." instance=ExtResource("5_673v1")]
+position = Vector2(256, 224)
+
+[node name="Room6" parent="." instance=ExtResource("5_utmoe")]
+position = Vector2(512, 224)
+
+[node name="Room7" parent="." instance=ExtResource("7_uhwvi")]
+position = Vector2(0, 448)
+
+[node name="Room8" parent="." instance=ExtResource("8_yrdku")]
+position = Vector2(256, 448)
+
+[node name="Room9" parent="." instance=ExtResource("9_qqylf")]
+position = Vector2(512, 448)

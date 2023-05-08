@@ -1,9 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgk2llf0olncd"]
+[gd_scene load_steps=5 format=3 uid="uid://byeoyxkv4q6d2"]
 
-[ext_resource type="Script" path="res://src/room_controller.gd" id="1_7cxt0"]
+[ext_resource type="Script" path="res://src/room.gd" id="1_7tlif"]
+[ext_resource type="Script" path="res://src/foreground.gd" id="2_b8op0"]
+[ext_resource type="Shader" path="res://src/palette_swap.gdshader" id="2_id4dx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b8i6n"]
+resource_local_to_scene = true
+shader = ExtResource("2_id4dx")
 
 [node name="Room" type="Node2D"]
-script = ExtResource("1_7cxt0")
+script = ExtResource("1_7tlif")
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="Foreground" type="TileMap" parent="."]
+material = SubResource("ShaderMaterial_b8i6n")
 format = 2
+script = ExtResource("2_b8op0")
+
+[node name="Background" type="TileMap" parent="."]
+format = 2
+layer_0/z_index = -1

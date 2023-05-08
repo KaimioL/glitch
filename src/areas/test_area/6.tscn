@@ -1,0 +1,18 @@
+[gd_scene load_steps=6 format=3 uid="uid://x0h7deahx6dv"]
+
+[ext_resource type="PackedScene" uid="uid://byeoyxkv4q6d2" path="res://src/room.tscn" id="1_magct"]
+[ext_resource type="Shader" path="res://src/palette_swap.gdshader" id="2_5us14"]
+[ext_resource type="Texture2D" uid="uid://dm2lah6liojwn" path="res://assets/palettes/temp_foreground_pal.png" id="3_rrtcm"]
+[ext_resource type="TileSet" uid="uid://dxtpccydgeedi" path="res://src/tiles/temp_tileset.tres" id="4_t6vno"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2l254"]
+resource_local_to_scene = true
+shader = ExtResource("2_5us14")
+shader_parameter/palette = ExtResource("3_rrtcm")
+
+[node name="Room" instance=ExtResource("1_magct")]
+
+[node name="Foreground" parent="." index="0"]
+material = SubResource("ShaderMaterial_2l254")
+tile_set = ExtResource("4_t6vno")
+layer_0/tile_data = PackedInt32Array(0, 7, 0, 65536, 7, 0, 131072, 7, 0, 196608, 7, 0, 262144, 7, 0, 327680, 7, 0, 393216, 7, 0, 458752, 7, 0, 524288, 7, 0, 589824, 7, 0, 655360, 7, 0, 720896, 7, 0, 786432, 7, 0, 851968, 7, 0, 851969, 7, 0, 851970, 7, 0, 851971, 7, 0, 851972, 7, 0, 851979, 7, 0, 851980, 7, 0, 851981, 7, 0, 851982, 7, 0, 851983, 7, 0, 851973, 7, 0, 1, 7, 0, 2, 7, 0, 3, 7, 0, 786447, 7, 0, 720911, 7, 0, 655375, 7, 0, 589839, 7, 0, 524303, 7, 0, 458767, 7, 0, 393231, 7, 0, 327695, 7, 0, 262159, 7, 0, 196623, 7, 0, 131087, 7, 0, 65551, 7, 0, 15, 7, 0, 14, 7, 0, 13, 7, 0, 12, 7, 0, 11, 7, 0, 10, 7, 0, 9, 7, 0)

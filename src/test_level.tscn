@@ -1,12 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://chfyt358uduoc"]
+[gd_scene load_steps=8 format=3 uid="uid://bcgu4wtmn4cwv"]
 
 [ext_resource type="PackedScene" uid="uid://cpjobmcjkf7i7" path="res://src/player/player.tscn" id="1_e05le"]
-[ext_resource type="Script" path="res://src/camera/camera_2d.gd" id="2_5fyml"]
+[ext_resource type="Script" path="res://src/camera/camera_2d.gd" id="2_cd324"]
 [ext_resource type="AudioStream" uid="uid://b3d0prk4qlltt" path="res://assets/sounds/victory.wav" id="3_db6f6"]
 [ext_resource type="AudioStream" uid="uid://cbxshga06ucbc" path="res://assets/sounds/music.wav" id="4_1bksf"]
 [ext_resource type="Shader" path="res://src/camera/camera.gdshader" id="5_hdqxr"]
-[ext_resource type="PackedScene" uid="uid://dgk2llf0olncd" path="res://src/room.tscn" id="6_6eilq"]
-[ext_resource type="TileSet" uid="uid://dxtpccydgeedi" path="res://src/tiles/temp_tileset.tres" id="7_qrrcn"]
+[ext_resource type="Script" path="res://src/area.gd" id="8_eat2m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_asfis"]
 shader = ExtResource("5_hdqxr")
@@ -16,10 +15,11 @@ shader = ExtResource("5_hdqxr")
 [node name="Player" parent="." instance=ExtResource("1_e05le")]
 position = Vector2(70, 195)
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player", "area")]
 anchor_mode = 0
-script = ExtResource("2_5fyml")
+script = ExtResource("2_cd324")
 player = NodePath("../Player")
+area = NodePath("../Area")
 
 [node name="VictoryFanfare" type="AudioStreamPlayer" parent="Camera2D"]
 stream = ExtResource("3_db6f6")
@@ -55,5 +55,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Room" parent="." instance=ExtResource("6_6eilq")]
-tileset = ExtResource("7_qrrcn")
+[node name="Area" type="Node" parent="."]
+script = ExtResource("8_eat2m")
+width = 3
+height = 3
+area_name = "test_area"
