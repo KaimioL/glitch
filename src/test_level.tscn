@@ -13,6 +13,7 @@ shader = ExtResource("5_hdqxr")
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_e05le")]
+z_index = 1
 position = Vector2(70, 195)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player", "area")]

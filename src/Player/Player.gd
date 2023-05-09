@@ -22,22 +22,21 @@ func _ready():
 	starting_pos = position
 
 func _physics_process(delta):
+	if(Input.is_action_pressed("glitch_key") || is_inside_wall()):
+		disable_collision_shapes()
+	else:
+		enable_collision_shapes()
+	
 	update_velocity(delta)
 	update_facing_direction()
 	move_and_slide()
 	update_animation()
 
 func _process(delta):
-	is_inside_wall()
 	# Respawn for debugging
 	if(Input.is_action_pressed("debug_spawn")):
 		position = starting_pos
 	
-	if(Input.is_action_pressed("glitch_key") || is_inside_wall()):
-		disable_collision_shapes()
-	else:
-		enable_collision_shapes()
-
 func update_animation() -> void:
 	animation_tree.set("parameters/move/blend_position", direction.x)
 	animation_tree.set("parameters/crouch/blend_position", direction.x)	
