@@ -442,6 +442,7 @@ shader_parameter/palette = ExtResource("10_lfl31")
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -9)
+collision_mask = 2
 floor_stop_on_slope = false
 script = ExtResource("1_vuwqi")
 
@@ -541,11 +542,13 @@ visible = false
 position = Vector2(-4, -2)
 target_position = Vector2(0, 11)
 collision_mask = 2
+hit_from_inside = true
 
 [node name="InsideWallRayCastRight" type="RayCast2D" parent="InsideWallRayCasts"]
 position = Vector2(4, -2)
 target_position = Vector2(0, 11)
 collision_mask = 2
+hit_from_inside = true
 
 [node name="Node2D" type="Node2D" parent="."]
 
