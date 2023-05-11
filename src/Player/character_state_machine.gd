@@ -11,7 +11,7 @@ signal transitioned(state_name)
 
 @onready var state: State = get_node(initial_state)
 
-var can_move: float: 
+var can_move: bool: 
 	get: 
 		return state.can_move
 		
@@ -26,6 +26,14 @@ var friction: float:
 var max_speed: float:
 	get:
 		return state.max_speed
+		
+var can_aim_down: bool:
+	get:
+		return state.can_aim_down
+		
+var can_shoot: bool:
+	get:
+		return state.can_shoot
 
 func _ready():
 	for child in get_children():

@@ -27,13 +27,13 @@ func update(delta):
 
 func physics_update(delta):
 	apply_gravitation(delta)
-	if(Input.is_action_pressed("down") || !Input.is_action_pressed("jump")):
+	if(!Input.is_action_pressed("jump")):
 		character.velocity.y -= character.velocity.y * air_cut
 
 func handle_input(event: InputEvent):
 	if(event.is_action_pressed("jump") && character.is_near_wall() && !character.is_inside_wall()):
 		state_machine.change_state("WallJump")
-
+		
 func enter(args: Dictionary = {}):
 	if(args.has("cant_move")):
 		lock_movement_timer = args['cant_move']
@@ -58,4 +58,3 @@ func apply_gravitation(delta: float):
 	
 func update_timers(delta: float):
 	lock_movement_timer -= delta
-	

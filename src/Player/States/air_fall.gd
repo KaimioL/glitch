@@ -45,7 +45,6 @@ func handle_input(event: InputEvent):
 		state_machine.change_state("WallJump")
 	elif(event.is_action_pressed("jump")):
 		jump_buffer_timer = jump_buffer
-		
 
 func apply_gravitation(delta: float):
 	var applied_gravity: float = 0

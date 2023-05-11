@@ -26,6 +26,7 @@ func enter(args: Dictionary = {}):
 	$CrouchAudio.play()
 	playback.travel(crouch_animation)
 	character.crouching = true
+	can_aim_down = false
 	
 	_scale_character_nodes(1)
 	

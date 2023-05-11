@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var crouch_collision_shape: CollisionShape2D = $CrouchCollisionShape
 @onready var wall_raycasts: Node2D = $WallRayCasts
 @onready var inside_wall_raycasts: Node2D = $InsideWallRayCasts
+@onready var weapon: Weapon = $Spear
 
 var direction: Vector2
 var flipped: bool = false
@@ -35,7 +36,17 @@ func _physics_process(delta):
 func _process(delta):
 	# Respawn for debugging
 	if(Input.is_action_pressed("debug_spawn")):
-		position = starting_pos
+		position = starting_pos	
+	
+	if(Input.is_action_pressed("up")):
+		weapon.look_up()
+	elif(Input.is_action_pressed("down") && state_machine.can_aim_down):
+		weapon.look_down()
+	else:
+		weapon.look_forward()
+		
+	if(Input.is_action_pressed("attack")):
+		weapon.shoot()
 	
 func update_animation() -> void:
 	animation_tree.set("parameters/move/blend_position", direction.x)
@@ -49,6 +60,7 @@ func update_facing_direction() -> void:
 	
 func flip_character() -> void:
 	sprite.scale.x *= -1
+	weapon.scale.x *= -1
 	flipped = !flipped
 	
 func update_velocity(delta) -> void:
@@ -78,7 +90,7 @@ func update_velocity(delta) -> void:
 		
 		# Stop momentum if direction is not held 
 		if direction.x != sign(velocity.x):
-			velocity.x *= 0.1
+			velocity.x *= 0.5
 			
 func is_near_wall() -> int:
 	for raycast in wall_raycasts.get_children():
@@ -106,3 +118,6 @@ func enable_collision_shapes() -> void:
 	else:
 		collision_shape.disabled = false
 		crouch_collision_shape.disabled = true
+		
+func attack() -> void:
+	pass

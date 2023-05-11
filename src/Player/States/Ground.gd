@@ -23,6 +23,7 @@ func handle_input(event: InputEvent):
 		_jump()
 
 func enter(args: Dictionary = {}):
+	can_aim_down = false
 	acceleration = ground_acceleration
 	friction = ground_friction
 	max_speed = ground_max_speed

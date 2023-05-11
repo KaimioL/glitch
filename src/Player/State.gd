@@ -4,6 +4,10 @@ class_name State
 
 var can_move: bool = true:
 	set = _set_can_move
+var can_attack: bool = true:
+	set = _set_can_attack
+var can_aim_down: bool = true:
+	set = _set_can_aim_down
 var acceleration: float = 40:
 	set = _set_acceleration
 var friction: float = 1:
@@ -30,6 +34,9 @@ func enter(args: Dictionary = {}):
 func exit():
 	pass
 
+func _set_can_aim_down(s: bool):
+	can_aim_down = s
+
 func _set_can_move(s: bool):
 	can_move = s
 
@@ -41,3 +48,6 @@ func _set_acceleration(s: float):
 	
 func _set_max_speed(s: float):
 	max_speed = s
+	
+func _set_can_attack(s: bool):
+	can_attack = s
