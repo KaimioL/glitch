@@ -6,8 +6,11 @@ func _process(delta):
 	if(_active_frame):
 		for hitcheck in $Hitchecks.get_children():
 			if(hitcheck.is_colliding()):
+				if(hitcheck.get_collider().has_method("take_damage")):
+					hitcheck.get_collider().take_damage(1)
 				_active_frame = false
 				get_parent().do_collision_launch(hitcheck.get_collision_normal())
+				break
 
 func attack() -> void:
 	$Effect.visible = true

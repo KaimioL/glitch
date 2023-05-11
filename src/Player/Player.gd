@@ -59,9 +59,10 @@ func update_facing_direction() -> void:
 		flip_character()
 	
 func flip_character() -> void:
-	sprite.scale.x *= -1
-	weapon.scale.x *= -1
-	flipped = !flipped
+	if(state_machine.can_move):
+		sprite.scale.x *= -1
+		weapon.scale.x *= -1
+		flipped = !flipped
 	
 func update_velocity(delta) -> void:
 	var friction = state_machine.friction
@@ -118,6 +119,18 @@ func enable_collision_shapes() -> void:
 	else:
 		collision_shape.disabled = false
 		crouch_collision_shape.disabled = true
-		
-func attack() -> void:
-	pass
+
+func take_damage(amount: int) -> void:
+	$Health.take_damage(amount)
+	
+func get_current_health() -> int:
+	return $Health.current_health
+
+func die() -> void:
+	state_machine.change_state("Dead")
+	
+func get_current_state() -> String:
+	return state_machine.state.name
+	
+func _on_health_health_depleted():
+	die()

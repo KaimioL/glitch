@@ -67,15 +67,15 @@ libraries = {
 [node name="Hitchecks" type="Node2D" parent="AttackFront" index="2"]
 
 [node name="Hitcheck" type="RayCast2D" parent="AttackFront/Hitchecks" index="0"]
-position = Vector2(13, -3)
-target_position = Vector2(18, 0)
+position = Vector2(2, -2)
+target_position = Vector2(28, 0)
 collision_mask = 4
 hit_from_inside = true
 collide_with_areas = true
 
 [node name="Hitcheck2" type="RayCast2D" parent="AttackFront/Hitchecks" index="1"]
-position = Vector2(13, 1)
-target_position = Vector2(18, 0)
+position = Vector2(2, 2)
+target_position = Vector2(28, 0)
 collision_mask = 4
 hit_from_inside = true
 collide_with_areas = true
@@ -98,15 +98,15 @@ libraries = {
 [node name="Hitchecks" type="Node2D" parent="AttackUp" index="2"]
 
 [node name="Hitcheck" type="RayCast2D" parent="AttackUp/Hitchecks" index="0"]
-position = Vector2(3, -13)
-target_position = Vector2(0, -25)
+position = Vector2(2, -2)
+target_position = Vector2(0, -28)
 collision_mask = 4
 hit_from_inside = true
 collide_with_areas = true
 
 [node name="Hitcheck2" type="RayCast2D" parent="AttackUp/Hitchecks" index="1"]
-position = Vector2(-1, -13)
-target_position = Vector2(0, -25)
+position = Vector2(-1, -2)
+target_position = Vector2(0, -28)
 collision_mask = 4
 hit_from_inside = true
 collide_with_areas = true
@@ -129,14 +129,14 @@ libraries = {
 [node name="Hitchecks" type="Node2D" parent="AttackDown" index="2"]
 
 [node name="Hitcheck1" type="RayCast2D" parent="AttackDown/Hitchecks" index="0"]
-position = Vector2(-1, 13)
+position = Vector2(-1, 2)
 target_position = Vector2(0, 28)
 collision_mask = 4
 hit_from_inside = true
 collide_with_areas = true
 
 [node name="Hitcheck2" type="RayCast2D" parent="AttackDown/Hitchecks" index="1"]
-position = Vector2(3, 13)
+position = Vector2(2, 2)
 target_position = Vector2(0, 28)
 collision_mask = 4
 hit_from_inside = true

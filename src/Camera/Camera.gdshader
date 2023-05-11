@@ -13,7 +13,7 @@ float noise(float p){
 
 float blockyNoise(vec2 uv, float threshold, float scale, float seed)
 {
-	float scroll = floor(TIME + sin(11.0 *  TIME) + sin(TIME) ) * 0.77;
+	float scroll = floor(sin(11.0 *  TIME) + sin(TIME) ) * 0.77;
     vec2 noiseUV = uv.yy / scale + scroll;
     float noise2 = texture(iChannel1, noiseUV).r;
     

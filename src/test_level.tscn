@@ -1,14 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcgu4wtmn4cwv"]
+[gd_scene load_steps=14 format=3 uid="uid://so823pk4hre3"]
 
 [ext_resource type="PackedScene" uid="uid://e805exnvkd1s" path="res://src/player/player.tscn" id="1_e05le"]
 [ext_resource type="Script" path="res://src/camera/camera_2d.gd" id="2_cd324"]
 [ext_resource type="AudioStream" uid="uid://b3d0prk4qlltt" path="res://assets/sounds/victory.wav" id="3_db6f6"]
 [ext_resource type="AudioStream" uid="uid://cbxshga06ucbc" path="res://assets/sounds/music.wav" id="4_1bksf"]
 [ext_resource type="Shader" path="res://src/camera/camera.gdshader" id="5_hdqxr"]
-[ext_resource type="Script" path="res://src/area.gd" id="8_eat2m"]
+[ext_resource type="Script" path="res://src/areas/area.gd" id="6_q62i1"]
+[ext_resource type="Texture2D" uid="uid://b6fhfidsax574" path="res://assets/hud/heart.png" id="7_ciw8l"]
+[ext_resource type="Script" path="res://src/hud_controller.gd" id="7_cqusx"]
+[ext_resource type="FontFile" uid="uid://byttc0mskf7ck" path="res://assets/fonts/DungeonFont.ttf" id="9_rnqai"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8ursv"]
+seed = 13
+frequency = 0.753
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1iu2n"]
+noise = SubResource("FastNoiseLite_8ursv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_asfis"]
 shader = ExtResource("5_hdqxr")
+shader_parameter/iChannel1 = SubResource("NoiseTexture2D_1iu2n")
+
+[sub_resource type="Theme" id="Theme_sfj8c"]
+default_font = ExtResource("9_rnqai")
+default_font_size = 51
 
 [node name="Node2D" type="Node2D"]
 
@@ -45,10 +60,17 @@ grow_vertical = 2
 text = "VICTORY"
 fit_content = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
-visible = false
+[node name="Area" type="Node" parent="."]
+script = ExtResource("6_q62i1")
+width = 3
+height = 3
+area_name = "test_area"
 
-[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer"]
+[node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("7_cqusx")
+player = NodePath("../Player")
+
+[node name="LowHealthEffect" type="ColorRect" parent="HUD"]
 material = SubResource("ShaderMaterial_asfis")
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,8 +78,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Area" type="Node" parent="."]
-script = ExtResource("8_eat2m")
-width = 3
-height = 3
-area_name = "test_area"
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 53.0
+offset_bottom = 15.0
+
+[node name="TextureRect" type="TextureRect" parent="HUD/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_ciw8l")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="HUD/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_ciw8l")
+expand_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="HUD/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_ciw8l")
+expand_mode = 3
+
+[node name="GameOverScreen" type="Label" parent="HUD"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.0
+offset_top = -28.0
+offset_right = 134.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_sfj8c")
+text = "GAME OVER"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://e805exnvkd1s"]
+[gd_scene load_steps=68 format=3 uid="uid://e805exnvkd1s"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_vuwqi"]
 [ext_resource type="Texture2D" uid="uid://kxm3k5uu7w3e" path="res://assets/player/character_crouch_idle.png" id="2_hmmw1"]
@@ -11,6 +11,7 @@
 [ext_resource type="Shader" path="res://src/palette_swap.gdshader" id="9_eftcn"]
 [ext_resource type="Texture2D" uid="uid://b6fbcupruir2m" path="res://assets/player/character_attack_forward-Sheet.png" id="9_fjiwp"]
 [ext_resource type="Texture2D" uid="uid://cn0thd3rcxpji" path="res://assets/palettes/player_pal.png" id="10_lfl31"]
+[ext_resource type="Texture2D" uid="uid://3pus4qw0nur1" path="res://assets/player/character_death-Sheet.png" id="10_yvvyw"]
 [ext_resource type="Script" path="res://src/player/character_state_machine.gd" id="11_0vxvk"]
 [ext_resource type="Script" path="res://src/player/states/ground.gd" id="13_g5ler"]
 [ext_resource type="AudioStream" uid="uid://doxhrsetc25eh" path="res://assets/player/sounds/crouch_audio.wav" id="14_ef6aq"]
@@ -22,6 +23,8 @@
 [ext_resource type="Script" path="res://src/player/states/wall_jump.gd" id="20_brjnv"]
 [ext_resource type="Script" path="res://src/player/states/walll_cling.gd" id="21_bqb0e"]
 [ext_resource type="Script" path="res://src/player/state_debug_label.gd" id="21_hwbns"]
+[ext_resource type="Script" path="res://src/player/states/dead.gd" id="23_hxvgp"]
+[ext_resource type="Script" path="res://src/misc/health.gd" id="24_0v6hw"]
 [ext_resource type="PackedScene" uid="uid://wrxbkg1jgt4a" path="res://src/player/weapons/spear/spear.tscn" id="24_uyf1c"]
 
 [sub_resource type="Animation" id="Animation_3iklj"]
@@ -37,6 +40,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_pegs2"]
@@ -159,6 +174,46 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_bc5bn"]
+resource_name = "death"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_yvvyw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_qc4l8"]
@@ -343,6 +398,7 @@ _data = {
 "attack_forward": SubResource("Animation_pegs2"),
 "crouch_idle": SubResource("Animation_6s7xs"),
 "crouch_walk": SubResource("Animation_biwy1"),
+"death": SubResource("Animation_bc5bn"),
 "fall": SubResource("Animation_qc4l8"),
 "idle": SubResource("Animation_qikpt"),
 "jump": SubResource("Animation_0y1um"),
@@ -366,6 +422,9 @@ blend_point_1/pos = 0.0
 blend_point_2/node = SubResource("AnimationNodeAnimation_pjh6u")
 blend_point_2/pos = 1.0
 blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hbkly"]
+animation = &"death"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fnhi6"]
 animation = &"fall"
@@ -414,18 +473,28 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2sfk5"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tgj25"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wo40l"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6jdtt"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1j4xg"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2hm1b"]
-states/End/position = Vector2(902.667, 100.757)
-states/Start/position = Vector2(200, 100.817)
+states/End/position = Vector2(991.334, 166.905)
+states/Start/position = Vector2(199.333, 100.15)
 states/crouch/node = SubResource("AnimationNodeBlendSpace1D_ng0ld")
 states/crouch/position = Vector2(669.334, 167.6)
+states/death/node = SubResource("AnimationNodeAnimation_hbkly")
+states/death/position = Vector2(715.334, -30.6227)
 states/fall/node = SubResource("AnimationNodeAnimation_fnhi6")
 states/fall/position = Vector2(212.666, -22.467)
 states/jump/node = SubResource("AnimationNodeAnimation_gwdjr")
 states/jump/position = Vector2(410.667, -119.333)
 states/move/node = SubResource("AnimationNodeBlendSpace1D_5e5ht")
-states/move/position = Vector2(360.666, 167.802)
-transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_6ve0s"), "move", "jump", SubResource("AnimationNodeStateMachineTransition_x64wq"), "move", "fall", SubResource("AnimationNodeStateMachineTransition_exe6e"), "fall", "move", SubResource("AnimationNodeStateMachineTransition_vokfm"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_nk0nx"), "jump", "move", SubResource("AnimationNodeStateMachineTransition_lh1df"), "move", "crouch", SubResource("AnimationNodeStateMachineTransition_yrwn6"), "crouch", "move", SubResource("AnimationNodeStateMachineTransition_tmqyl"), "crouch", "fall", SubResource("AnimationNodeStateMachineTransition_bwheh"), "crouch", "jump", SubResource("AnimationNodeStateMachineTransition_1h7wj"), "fall", "crouch", SubResource("AnimationNodeStateMachineTransition_2sfk5")]
+states/move/position = Vector2(377.999, 165.426)
+transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_6ve0s"), "move", "jump", SubResource("AnimationNodeStateMachineTransition_x64wq"), "move", "fall", SubResource("AnimationNodeStateMachineTransition_exe6e"), "fall", "move", SubResource("AnimationNodeStateMachineTransition_vokfm"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_nk0nx"), "jump", "move", SubResource("AnimationNodeStateMachineTransition_lh1df"), "move", "crouch", SubResource("AnimationNodeStateMachineTransition_yrwn6"), "crouch", "move", SubResource("AnimationNodeStateMachineTransition_tmqyl"), "crouch", "fall", SubResource("AnimationNodeStateMachineTransition_bwheh"), "crouch", "jump", SubResource("AnimationNodeStateMachineTransition_1h7wj"), "fall", "crouch", SubResource("AnimationNodeStateMachineTransition_2sfk5"), "move", "death", SubResource("AnimationNodeStateMachineTransition_tgj25"), "crouch", "death", SubResource("AnimationNodeStateMachineTransition_wo40l"), "fall", "death", SubResource("AnimationNodeStateMachineTransition_6jdtt"), "jump", "death", SubResource("AnimationNodeStateMachineTransition_1j4xg")]
 graph_offset = Vector2(0, -235.956)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_oc0s6"]
@@ -470,9 +539,8 @@ disabled = true
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_mllsx")
 position = Vector2(0, 9)
-texture = ExtResource("5_etqph")
+texture = ExtResource("10_yvvyw")
 offset = Vector2(0, -16)
-hframes = 11
 
 [node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "animation_tree", "wall_raycasts")]
 script = ExtResource("11_0vxvk")
@@ -515,6 +583,9 @@ script = ExtResource("20_brjnv")
 [node name="WallCling" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("21_bqb0e")
 
+[node name="Dead" type="Node" parent="CharacterStateMachine"]
+script = ExtResource("23_hxvgp")
+
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 visible = false
 offset_left = -44.0
@@ -554,3 +625,8 @@ hit_from_inside = true
 
 [node name="Spear" parent="." instance=ExtResource("24_uyf1c")]
 position = Vector2(0, 5)
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("24_0v6hw")
+
+[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]

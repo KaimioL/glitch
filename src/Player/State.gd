@@ -4,6 +4,8 @@ class_name State
 
 var can_move: bool = true:
 	set = _set_can_move
+var can_turn: bool = true:
+	set = _set_can_move
 var can_attack: bool = true:
 	set = _set_can_attack
 var can_aim_down: bool = true:
