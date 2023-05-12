@@ -47,7 +47,7 @@ _data = {
 script = ExtResource("2_arcp0")
 collision_launch_power = 300
 
-[node name="SpriteDown" parent="." index="2"]
+[node name="SpriteFront" parent="." index="0"]
 visible = true
 
 [node name="AttackFront" type="Node2D" parent="." index="3"]
@@ -65,6 +65,7 @@ libraries = {
 }
 
 [node name="Hitchecks" type="Node2D" parent="AttackFront" index="2"]
+visible = false
 
 [node name="Hitcheck" type="RayCast2D" parent="AttackFront/Hitchecks" index="0"]
 position = Vector2(2, -2)
@@ -96,6 +97,7 @@ libraries = {
 }
 
 [node name="Hitchecks" type="Node2D" parent="AttackUp" index="2"]
+visible = false
 
 [node name="Hitcheck" type="RayCast2D" parent="AttackUp/Hitchecks" index="0"]
 position = Vector2(2, -2)
@@ -127,6 +129,7 @@ libraries = {
 }
 
 [node name="Hitchecks" type="Node2D" parent="AttackDown" index="2"]
+visible = false
 
 [node name="Hitcheck1" type="RayCast2D" parent="AttackDown/Hitchecks" index="0"]
 position = Vector2(-1, 2)

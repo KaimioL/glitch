@@ -3,8 +3,8 @@ extends CharacterBody2D
 @onready var animation_tree:  AnimationTree = $AnimationTree
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var state_machine: CharacterStateMachine = $CharacterStateMachine
-@onready var collision_shape: CollisionShape2D = $NormalCollisionShape
-@onready var crouch_collision_shape: CollisionShape2D = $CrouchCollisionShape
+@onready var collision_box: CollisionShape2D = $CollisionBox
+@onready var hurt_box: Area2D = $HurtBox
 @onready var wall_raycasts: Node2D = $WallRayCasts
 @onready var inside_wall_raycasts: Node2D = $InsideWallRayCasts
 @onready var weapon: Weapon = $Spear
@@ -23,7 +23,7 @@ func _ready():
 	starting_pos = position
 
 func _physics_process(delta):
-	if(Input.is_action_pressed("glitch_key") || is_inside_wall()):
+	if Input.is_action_pressed("glitch_key") or is_inside_wall():
 		disable_collision_shapes()
 	else:
 		enable_collision_shapes()
@@ -35,18 +35,19 @@ func _physics_process(delta):
 
 func _process(delta):
 	# Respawn for debugging
-	if(Input.is_action_pressed("debug_spawn")):
+	if Input.is_action_pressed("debug_spawn"):
 		position = starting_pos	
 	
-	if(Input.is_action_pressed("up")):
-		weapon.look_up()
-	elif(Input.is_action_pressed("down") && state_machine.can_aim_down):
-		weapon.look_down()
-	else:
-		weapon.look_forward()
+	if(state_machine.can_move):
+		if Input.is_action_pressed("up"):
+			weapon.look_up()
+		elif Input.is_action_pressed("down") && state_machine.can_aim_down:
+			weapon.look_down()
+		else:
+			weapon.look_forward()
 		
-	if(Input.is_action_pressed("attack")):
-		weapon.shoot()
+		if Input.is_action_pressed("attack"):
+			weapon.shoot()
 	
 func update_animation() -> void:
 	animation_tree.set("parameters/move/blend_position", direction.x)
@@ -59,7 +60,7 @@ func update_facing_direction() -> void:
 		flip_character()
 	
 func flip_character() -> void:
-	if(state_machine.can_move):
+	if state_machine.can_move:
 		sprite.scale.x *= -1
 		weapon.scale.x *= -1
 		flipped = !flipped
@@ -73,16 +74,16 @@ func update_velocity(delta) -> void:
 	direction.x = Input.get_axis("left", "right")
 	
 	# Slow down if velocity is over max speed
-	if(max_speed < abs(velocity.x)):
+	if max_speed < abs(velocity.x):
 		velocity.x = sign(velocity.x) * max_speed
 	
-	if(can_move):
+	if can_move:
 		if direction.x:
 			# Accelerate if speed is not over speed limit or to wrong direction
 			velocity.x = velocity.x + direction.x * acceleration if(max_speed > velocity.x * direction.x) else velocity.x
 			
 			# Apply friction for one frame if player changed directions during one frame to prevent sliding
-			if(direction.x != previous_direction && previous_direction != 0):
+			if direction.x != previous_direction and previous_direction != 0:
 				velocity.x *= friction
 			previous_direction = direction.x
 		
@@ -92,6 +93,10 @@ func update_velocity(delta) -> void:
 		# Stop momentum if direction is not held 
 		if direction.x != sign(velocity.x):
 			velocity.x *= 0.5
+			
+	else:
+		velocity.x *= friction
+		
 			
 func is_near_wall() -> int:
 	for raycast in wall_raycasts.get_children():
@@ -109,16 +114,19 @@ func is_inside_wall() -> bool:
 	return false
 
 func disable_collision_shapes() -> void:
-	collision_shape.disabled = true
-	crouch_collision_shape.disabled = true
+	collision_box.disabled = true
 		
 func enable_collision_shapes() -> void:
-	if crouching:
-		collision_shape.disabled = true
-		crouch_collision_shape.disabled = false
-	else:
-		collision_shape.disabled = false
-		crouch_collision_shape.disabled = true
+	collision_box.disabled = false
+	
+func resize_collision_box(s: float) -> void:
+	collision_box.shape.size.y -= s
+	collision_box.position.y += s/2
+	
+func resize_inside_wall_raycasts(s: float) -> void:
+	for raycast in inside_wall_raycasts.get_children():
+		raycast.target_position.y -= s
+		raycast.position.y += s
 
 func take_damage(amount: int) -> void:
 	$Health.take_damage(amount)

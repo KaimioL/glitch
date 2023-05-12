@@ -5,8 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cjpahw4hw7oq1" path="res://assets/palettes/enemy_pal.png" id="3_ospj1"]
 [ext_resource type="Texture2D" uid="uid://quffts477ph8" path="res://assets/enemies/flier-Sheet.png" id="4_24xf5"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4txjx"]
-resource_local_to_scene = true
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bspes"]
 size = Vector2(9, 12)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p60f4"]
@@ -58,15 +57,18 @@ animations = [{
 
 [node name="Flier" type="Area2D"]
 collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_tcyf0")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_4txjx")
+shape = SubResource("RectangleShape2D_bspes")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_p60f4")
 sprite_frames = SubResource("SpriteFrames_kdrld")
 animation = &"idle"
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

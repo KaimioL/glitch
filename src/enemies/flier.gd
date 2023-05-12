@@ -10,15 +10,15 @@ func _ready():
 func _process(delta):
 	pass
 
-func _on_body_entered(body):
-	if(body.has_method("take_damage")):
-		body.take_damage(damage)
-
 func take_damage(amount: int):
 	health -= amount
-	print(health)
 	if(health <= 0):
 		die()
 		
 func die():
 	queue_free()
+
+func _on_area_entered(area):
+	if(area.has_method("take_damage")):
+		area.take_damage(damage)
+
