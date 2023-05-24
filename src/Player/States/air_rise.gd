@@ -9,7 +9,7 @@ class_name AirRiseState
 @export var air_cut: float = 0.5
 @export var air_hang_treshold: float = 5
 @export var air_hang_gravity_mult : float = 0.1
-@export var air_friction: float = 0.99
+@export var air_friction: float = 0.8
 @export var acceleration_x = 10
 
 @export var jump_animation: String = "jump"

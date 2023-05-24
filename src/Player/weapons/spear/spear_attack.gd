@@ -9,7 +9,7 @@ func _process(delta):
 		for hitcheck in $Hitchecks.get_children():
 			if hitcheck.is_colliding():
 				if hitcheck.get_collider().has_method("take_damage"):
-					hitcheck.get_collider().take_damage(1)
+					hitcheck.get_collider().take_damage(1, Vector2(0, 0))
 					get_parent().play_hit_sound()
 				_active_frame = false
 				if collision_launch:

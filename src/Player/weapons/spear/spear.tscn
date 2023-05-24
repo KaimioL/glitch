@@ -45,7 +45,7 @@ _data = {
 
 [node name="Spear" instance=ExtResource("1_5hxmg")]
 script = ExtResource("2_arcp0")
-collision_launch_power = 300
+collision_launch_power = Vector2(50, 300)
 
 [node name="SpriteFront" parent="." index="0"]
 visible = true

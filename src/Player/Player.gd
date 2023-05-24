@@ -11,10 +11,13 @@ signal pickup_collected(pickup_name)
 @onready var wall_raycasts: Node2D = $WallRayCasts
 @onready var inside_wall_raycasts: Node2D = $InsideWallRayCasts
 @onready var weapon: Weapon = $Spear
+@onready var invulnerability_timer: Timer = $InvulnerabilityTimer
+@onready var effects_animation_player: AnimationPlayer = $EffectsAnimationPlayer
 
 var direction: Vector2
 var flipped: bool = false
 var crouching: bool = false
+var alive = true
 
 var previous_direction: float = 0
 var starting_pos: Vector2
@@ -75,10 +78,12 @@ func update_velocity(delta) -> void:
 	
 	direction.x = Input.get_axis("left", "right")
 	
-	# Slow down if velocity is over max speed
-	if max_speed < abs(velocity.x):
+	# If horizontal speed is over max speed, slow down
+	if max_speed < abs(velocity.x * friction):
+		velocity.x *= friction
+	elif max_speed < abs(velocity.x):
 		velocity.x = sign(velocity.x) * max_speed
-	
+		
 	if can_move:
 		if direction.x:
 			# Accelerate if speed is not over speed limit or to wrong direction
@@ -92,14 +97,13 @@ func update_velocity(delta) -> void:
 		else:
 			velocity.x *= friction
 		
-		# Stop momentum if direction is not held 
-		if direction.x != sign(velocity.x):
-			velocity.x *= 0.5
+		# Stop momentum if direction is not held (not used?)
+#		if direction.x != sign(velocity.x):
+#			velocity.x *= 0.5
 			
 	else:
 		velocity.x *= friction
-		
-			
+	
 func is_near_wall() -> int:
 	for raycast in wall_raycasts.get_children():
 		if raycast.is_colliding():
@@ -130,14 +134,19 @@ func resize_inside_wall_raycasts(s: float) -> void:
 		raycast.target_position.y -= s
 		raycast.position.y += s
 
-func take_damage(amount: int) -> void:
-	took_damage.emit(amount)
+func take_damage(amount: int, direction: Vector2) -> void:
+	if invulnerability_timer.is_stopped():
+		took_damage.emit(amount)
+		invulnerability_timer.start()
+		effects_animation_player.play("flash")
+		state_machine.change_state("Hurt", {"direction": direction})
 	
 func get_current_health() -> int:
 	return $Health.current_health
 
 func die() -> void:
 	state_machine.change_state("Dead")
+	alive = false
 	
 func get_current_state() -> String:
 	return state_machine.state.name
@@ -147,3 +156,6 @@ func get_pickup(pickup_name: String):
 
 func _on_save_data_changed(data):
 	pickups = data["pickups"]
+
+func _on_invulnerability_timer_timeout():
+	effects_animation_player.play("rest")

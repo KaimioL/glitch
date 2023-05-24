@@ -7,7 +7,7 @@ class_name AirFallState
 @export var fall_velocity_max: float = 350
 @export var coyote_time: float = 0.1
 @export var jump_buffer: float = 0.08
-@export var air_friction = 0.99
+@export var air_friction = 0.8
 @export var acceleration_x = 10
 
 @export var fall_animation: String = "fall"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://1t4y3ivq1u7w"]
+[gd_scene load_steps=74 format=3 uid="uid://1t4y3ivq1u7w"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_vuwqi"]
 [ext_resource type="Texture2D" uid="uid://kxm3k5uu7w3e" path="res://assets/player/character_crouch_idle.png" id="2_hmmw1"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://src/player/state_debug_label.gd" id="21_hwbns"]
 [ext_resource type="Script" path="res://src/player/states/dead.gd" id="23_hxvgp"]
 [ext_resource type="Script" path="res://src/misc/health.gd" id="24_0v6hw"]
+[ext_resource type="Script" path="res://src/player/states/hurt.gd" id="24_qv6jm"]
 [ext_resource type="PackedScene" uid="uid://wrxbkg1jgt4a" path="res://src/player/weapons/spear/spear.tscn" id="24_uyf1c"]
 [ext_resource type="Script" path="res://src/player/hurt_box.gd" id="27_sck7p"]
 
@@ -510,6 +511,61 @@ shader_parameter/palette = ExtResource("10_lfl31")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8045"]
 size = Vector2(8, 11)
 
+[sub_resource type="Animation" id="Animation_qrti5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1dxdr"]
+resource_name = "rest"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_iujbb"]
+resource_name = "flash"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4arms"]
+_data = {
+"RESET": SubResource("Animation_qrti5"),
+"flash": SubResource("Animation_iujbb"),
+"rest": SubResource("Animation_1dxdr")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 position = Vector2(0, -9)
 collision_layer = 2
@@ -581,6 +637,13 @@ script = ExtResource("21_bqb0e")
 [node name="Dead" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("23_hxvgp")
 
+[node name="Hurt" type="Node" parent="CharacterStateMachine"]
+script = ExtResource("24_qv6jm")
+
+[node name="HurtTimer" type="Timer" parent="CharacterStateMachine/Hurt"]
+wait_time = 0.001
+one_shot = true
+
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 visible = false
 offset_left = -44.0
@@ -630,3 +693,14 @@ player = NodePath("..")
 visible = false
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_r8045")
+
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="EffectsAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4arms")
+}
+
+[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]

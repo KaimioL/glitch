@@ -16,6 +16,7 @@ var data = {
 }
 
 func _ready():
+	save_game()
 	load_game()
 
 func _process(delta):

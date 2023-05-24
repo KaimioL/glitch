@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://buhlp6pp2nwx"]
+[gd_scene load_steps=6 format=3 uid="uid://glrq8j5e777"]
 
 [ext_resource type="Script" path="res://src/room.gd" id="1_7tlif"]
 [ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="2_txx4m"]
 [ext_resource type="Script" path="res://src/tiles/foreground.gd" id="3_j7gyv"]
-[ext_resource type="Script" path="res://src/areas/test_area/room_pickup_controller.gd" id="4_0iocx"]
+[ext_resource type="Script" path="res://src/areas/room_pickup_controller.gd" id="4_2cy8p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b8i6n"]
 resource_local_to_scene = true
@@ -22,4 +22,4 @@ format = 2
 layer_0/z_index = -1
 
 [node name="Pickups" type="Node2D" parent="."]
-script = ExtResource("4_0iocx")
+script = ExtResource("4_2cy8p")

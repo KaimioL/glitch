@@ -2,7 +2,7 @@ extends Node
 
 signal health_changed(old_amount, current_amount)
 
-@export var max_health = 255
+@export var max_health = 25
 @export var player: Node
 
 var current_health

@@ -13,7 +13,7 @@ func enter(args: Dictionary = {}):
 	friction = death_friction
 	
 	playback.travel("death")
-	
+
 func physics_update(delta):
 	apply_gravitation(delta)
 	

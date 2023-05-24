@@ -1,6 +1,6 @@
 extends Weapon
 
-@export var collision_launch_power = 300
+@export var collision_launch_power: Vector2 = Vector2(50, 300)
 
 func _process(delta) -> void:
 	pass
@@ -21,11 +21,10 @@ func start_attack_cooldown() -> void:
 	$Cooldown.start()
 	
 func do_collision_launch(direction: Vector2) -> void:
-	direction.x = -direction.x
 	if(direction.y != 0):
-		get_parent().velocity.y = direction.y * collision_launch_power
+		get_parent().velocity.y = direction.y * collision_launch_power.y
 	if(direction.x != 0):
-		get_parent().velocity.x = -direction.x * collision_launch_power
+		get_parent().velocity.x = direction.x * collision_launch_power.x
 
 func play_hit_sound() -> void:
 	$HitSound.play()

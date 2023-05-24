@@ -10,7 +10,7 @@ func _ready():
 func _process(delta):
 	pass
 
-func take_damage(amount: int):
+func take_damage(amount: int, direction: Vector2):
 	health -= amount
 	if(health <= 0):
 		die()
@@ -20,4 +20,4 @@ func die():
 
 func _on_area_entered(area):
 	if(area.has_method("take_damage")):
-		area.take_damage(damage)
+		area.take_damage(damage, global_position.direction_to(area.global_position))
