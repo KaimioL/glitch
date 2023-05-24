@@ -140,9 +140,6 @@ func take_damage(amount: int, direction: Vector2) -> void:
 		invulnerability_timer.start()
 		effects_animation_player.play("flash")
 		state_machine.change_state("Hurt", {"direction": direction})
-	
-func get_current_health() -> int:
-	return $Health.current_health
 
 func die() -> void:
 	state_machine.change_state("Dead")

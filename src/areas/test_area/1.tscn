@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=7 format=3 uid="uid://ngmi7b1ibuni"]
 
-[ext_resource type="PackedScene" uid="uid://cx0etkm6l4dx3" path="res://src/room.tscn" id="1_7lpek"]
+[ext_resource type="PackedScene" uid="uid://glrq8j5e777" path="res://src/room.tscn" id="1_7lpek"]
 [ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="2_u6jhl"]
 [ext_resource type="Texture2D" uid="uid://dm2lah6liojwn" path="res://assets/palettes/temp_foreground_pal.png" id="3_dnbk0"]
 [ext_resource type="TileSet" uid="uid://dxtpccydgeedi" path="res://src/tiles/temp_tileset.tres" id="4_plt2e"]
@@ -17,7 +17,7 @@ index = 1
 [node name="Foreground" parent="." index="0"]
 material = SubResource("ShaderMaterial_5olxw")
 tile_set = ExtResource("4_plt2e")
-layer_0/tile_data = PackedInt32Array(15, 7, 0, 14, 7, 0, 13, 7, 0, 12, 7, 0, 11, 7, 0, 10, 7, 0, 9, 7, 0, 8, 7, 0, 7, 7, 0, 6, 7, 0, 5, 7, 0, 4, 7, 0, 3, 7, 0, 2, 7, 0, 1, 7, 0, 0, 7, 0, 655360, 7, 0, 720896, 7, 0, 786432, 7, 0, 851968, 7, 0, 851970, 7, 0, 851971, 7, 0, 851972, 7, 0, 851973, 7, 0, 851969, 7, 0, 851979, 7, 0, 851980, 7, 0, 851981, 7, 0, 851982, 7, 0, 851983, 7, 0, 720911, 7, 0, 786447, 7, 0, 851978, 7, 0, 327680, 7, 0, 393216, 7, 0, 458752, 7, 0, 524288, 7, 0, 589824, 7, 0, 262144, 7, 0, 393219, 7, 0, 393220, 7, 0, 393223, 7, 0, 393224, 7, 0, 393227, 7, 0, 393228, 7, 0, 262159, 7, 0, 327695, 7, 0, 393231, 7, 0, 458767, 7, 0, 524303, 7, 0, 589839, 7, 0, 655375, 7, 0)
+layer_0/tile_data = PackedInt32Array(15, 7, 0, 14, 7, 0, 13, 7, 0, 12, 7, 0, 11, 7, 0, 10, 7, 0, 9, 7, 0, 8, 7, 0, 7, 7, 0, 6, 7, 0, 5, 7, 0, 4, 7, 0, 3, 7, 0, 2, 7, 0, 1, 7, 0, 0, 7, 0, 655360, 7, 0, 720896, 7, 0, 786432, 7, 0, 851968, 7, 0, 851970, 7, 0, 851971, 7, 0, 851972, 7, 0, 851973, 7, 0, 851969, 7, 0, 851979, 7, 0, 851980, 7, 0, 851981, 7, 0, 851982, 7, 0, 851983, 7, 0, 720911, 7, 0, 786447, 7, 0, 851978, 7, 0, 327680, 7, 0, 393216, 7, 0, 458752, 7, 0, 524288, 7, 0, 589824, 7, 0, 262144, 7, 0, 393219, 7, 0, 393220, 7, 0, 393227, 7, 0, 393228, 7, 0, 262159, 7, 0, 327695, 7, 0, 393231, 7, 0, 458767, 7, 0, 524303, 7, 0, 589839, 7, 0, 655375, 7, 0, 65551, 7, 0, 131087, 7, 0, 196623, 7, 0, 524296, 7, 0, 524295, 7, 0, 262152, 7, 0, 262151, 7, 0)
 
 [node name="Background" parent="." index="1"]
 tile_set = ExtResource("5_h6ga8")

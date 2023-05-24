@@ -64,7 +64,7 @@ fit_content = true
 [node name="Area" type="Node" parent="."]
 script = ExtResource("6_q62i1")
 width = 3
-height = 3
+height = 5
 area_name = "test_area"
 
 [node name="HUD" type="CanvasLayer" parent="."]

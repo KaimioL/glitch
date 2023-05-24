@@ -68,5 +68,3 @@ shape = SubResource("RectangleShape2D_bspes")
 material = SubResource("ShaderMaterial_p60f4")
 sprite_frames = SubResource("SpriteFrames_kdrld")
 animation = &"idle"
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]

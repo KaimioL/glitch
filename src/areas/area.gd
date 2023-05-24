@@ -31,6 +31,10 @@ func change_room(direction: Vector2i):
 	_unload_other_rooms(current_room_index)
 	print(current_room)
 	_load_rooms_around_current_room()
+	
+	# TEMPORARY I JUST WANNA SLEEP
+	if current_room_index == 2:
+		current_room.get_node("Node").play()
 
 func _get_room_index_from_coordinates(coords: Vector2i) -> int:
 	coords = _get_absolute_coordinates(coords)

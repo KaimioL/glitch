@@ -5,10 +5,14 @@ signal data_changed(data)
 var data = {
 	"pickups":{
 		"crouch": false,
+		"spear": false,
 	},
 	"areas": {
 		"test_area": {
-			"4": {
+			"5": {
+				"spear": true
+			},
+			"10": {
 				"crouch": true
 			}
 		}

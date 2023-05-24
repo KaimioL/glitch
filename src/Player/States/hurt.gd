@@ -14,7 +14,8 @@ func enter(args: Dictionary = {}):
 	hurt_timer.start()
 
 func update(delta):
-	if hurt_timer.is_stopped() && character.alive:
-		state_machine.change_state("AirFall")
-	else:
-		state_machine.change_state("Dead")
+	if hurt_timer.is_stopped():
+		if character.alive:
+			state_machine.change_state("AirFall")
+		else:
+			state_machine.change_state("Dead")

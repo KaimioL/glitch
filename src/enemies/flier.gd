@@ -8,7 +8,9 @@ func _ready():
 	$AnimatedSprite2D.play("idle")
 
 func _process(delta):
-	pass
+	for area in get_overlapping_areas():
+		if(area.has_method("take_damage")):
+			area.take_damage(damage, global_position.direction_to(area.global_position))
 
 func take_damage(amount: int, direction: Vector2):
 	health -= amount
@@ -17,7 +19,3 @@ func take_damage(amount: int, direction: Vector2):
 		
 func die():
 	queue_free()
-
-func _on_area_entered(area):
-	if(area.has_method("take_damage")):
-		area.take_damage(damage, global_position.direction_to(area.global_position))

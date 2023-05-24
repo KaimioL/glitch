@@ -1,14 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvr5h2odimes2"]
+[gd_scene load_steps=16 format=3 uid="uid://dvr5h2odimes2"]
 
 [ext_resource type="PackedScene" uid="uid://d3k6p8r1psoqq" path="res://src/areas/test_area/0.tscn" id="1_tj8xd"]
-[ext_resource type="PackedScene" path="res://src/areas/test_area/1.tscn" id="2_gtkla"]
+[ext_resource type="PackedScene" uid="uid://ngmi7b1ibuni" path="res://src/areas/test_area/1.tscn" id="2_gtkla"]
 [ext_resource type="PackedScene" uid="uid://c8gjmtvxapc2b" path="res://src/areas/test_area/2.tscn" id="3_h7kff"]
-[ext_resource type="PackedScene" path="res://src/areas/test_area/3.tscn" id="4_iioy5"]
+[ext_resource type="PackedScene" uid="uid://bntp4ebfhklxu" path="res://src/areas/test_area/3.tscn" id="4_iioy5"]
 [ext_resource type="PackedScene" uid="uid://myyewkcmo2v2" path="res://src/areas/test_area/4.tscn" id="5_673v1"]
-[ext_resource type="PackedScene" path="res://src/areas/test_area/5.tscn" id="5_utmoe"]
+[ext_resource type="PackedScene" uid="uid://tpaysii72wl1" path="res://src/areas/test_area/5.tscn" id="5_utmoe"]
 [ext_resource type="PackedScene" uid="uid://c4t7e2rlcwlix" path="res://src/areas/test_area/6.tscn" id="7_uhwvi"]
 [ext_resource type="PackedScene" uid="uid://o4u84kgpnmci" path="res://src/areas/test_area/7.tscn" id="8_yrdku"]
 [ext_resource type="PackedScene" uid="uid://bgq2ihhjlgsh" path="res://src/areas/test_area/8.tscn" id="9_qqylf"]
+[ext_resource type="PackedScene" uid="uid://bafbeoy86iotl" path="res://src/areas/test_area/10.tscn" id="10_13e6m"]
+[ext_resource type="PackedScene" uid="uid://buctmqblnrx0d" path="res://src/areas/test_area/9.tscn" id="11_a4kph"]
+[ext_resource type="PackedScene" uid="uid://bwla7bbfrfslq" path="res://src/areas/test_area/11.tscn" id="12_keluj"]
+[ext_resource type="PackedScene" uid="uid://cw6un8w7ekrad" path="res://src/areas/test_area/12.tscn" id="13_0qrnp"]
+[ext_resource type="PackedScene" uid="uid://c2j70dvffl1mh" path="res://src/areas/test_area/13.tscn" id="14_pk2m4"]
+[ext_resource type="PackedScene" uid="uid://dpdes6whceikl" path="res://src/areas/test_area/14.tscn" id="15_fcbfo"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -37,3 +43,30 @@ position = Vector2(256, 448)
 
 [node name="Room9" parent="." instance=ExtResource("9_qqylf")]
 position = Vector2(512, 448)
+
+[node name="Room10" parent="." instance=ExtResource("10_13e6m")]
+position = Vector2(256, 672)
+
+[node name="Room11" parent="." instance=ExtResource("11_a4kph")]
+position = Vector2(0, 672)
+
+[node name="Room12" parent="." instance=ExtResource("12_keluj")]
+position = Vector2(512, 672)
+
+[node name="Room13" parent="." instance=ExtResource("13_0qrnp")]
+position = Vector2(0, 896)
+
+[node name="Room14" parent="." instance=ExtResource("14_pk2m4")]
+position = Vector2(256, 896)
+
+[node name="Room15" parent="." instance=ExtResource("15_fcbfo")]
+position = Vector2(512, 896)
+
+[node name="Room19" parent="." instance=ExtResource("13_0qrnp")]
+position = Vector2(0, -224)
+
+[node name="Room20" parent="." instance=ExtResource("15_fcbfo")]
+position = Vector2(-257, -223)
+
+[node name="Room21" parent="." instance=ExtResource("3_h7kff")]
+position = Vector2(-256, 0)
