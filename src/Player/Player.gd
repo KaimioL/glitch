@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal took_damage(amount)
+signal pickup_collected(pickup_name)
 
 @onready var animation_tree:  AnimationTree = $AnimationTree
 @onready var sprite: Sprite2D = $Sprite2D
@@ -17,8 +18,6 @@ var crouching: bool = false
 
 var previous_direction: float = 0
 var starting_pos: Vector2
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 
 func _ready():
 	animation_tree.active = true
@@ -143,4 +142,4 @@ func get_current_state() -> String:
 	return state_machine.state.name
 
 func get_pickup(pickup_name: String):
-	get_parent().get_node("Save").set_pickup_data(pickup_name, true)
+	pickup_collected.emit(pickup_name)

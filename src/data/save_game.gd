@@ -40,3 +40,9 @@ func load_game():
 
 func set_pickup_data(pickup_name, value):
 	data["pickups"][pickup_name] = value
+	
+func get_pickup_data(pickup_name):
+	return data["pickups"][pickup_name]
+
+func _on_player_pickup_collected(pickup_name):
+	set_pickup_data(pickup_name, true)
