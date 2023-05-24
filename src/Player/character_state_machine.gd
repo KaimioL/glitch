@@ -34,6 +34,10 @@ var can_aim_down: bool:
 var can_shoot: bool:
 	get:
 		return state.can_shoot
+		
+var pickups: Dictionary:
+	get:
+		return character.pickups
 
 func _ready():
 	for child in get_children():

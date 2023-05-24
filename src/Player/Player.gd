@@ -18,6 +18,7 @@ var crouching: bool = false
 
 var previous_direction: float = 0
 var starting_pos: Vector2
+var pickups
 
 func _ready():
 	animation_tree.active = true
@@ -143,3 +144,6 @@ func get_current_state() -> String:
 
 func get_pickup(pickup_name: String):
 	pickup_collected.emit(pickup_name)
+
+func _on_save_data_changed(data):
+	pickups = data["pickups"]

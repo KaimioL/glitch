@@ -114,4 +114,8 @@ script = ExtResource("11_lek4b")
 
 [connection signal="pickup_collected" from="Player" to="Save" method="_on_player_pickup_collected"]
 [connection signal="took_damage" from="Player" to="GameState" method="_on_player_took_damage"]
+[connection signal="data_changed" from="Area" to="Save" method="_on_area_data_changed"]
+[connection signal="pickup_collected" from="Area" to="Save" method="_on_area_pickup_collected"]
 [connection signal="health_changed" from="GameState" to="HUD" method="_on_game_state_health_changed"]
+[connection signal="data_changed" from="Save" to="Player" method="_on_save_data_changed"]
+[connection signal="data_changed" from="Save" to="Area" method="_on_save_data_changed"]

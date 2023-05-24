@@ -14,9 +14,14 @@ var current_room_index: int = 0
 var current_room_coords: Vector2i
 var current_room
 
+var data: Dictionary
+
+signal data_changed(data, current_area)
+signal pickup_collected(pickup)
+
 func _ready():
 	current_area_folder = areas_folder + area_name + "/"
-	current_room = _load_starting_room(_get_room_index_from_coordinates(starting_room))
+	current_room = _load_room(_get_room_index_from_coordinates(starting_room))
 	current_room.position = Vector2(0, 0)
 	_load_rooms_around_current_room()
 
@@ -50,17 +55,28 @@ func _unload_other_rooms(index: int):
 		else:
 			current_room = _i
 			
-func _load_room(index: int, direction_from_current_room: Vector2):
+func _load_room(index: int, direction_from_current_room: Vector2 = Vector2(0, 0)):
 	var room = load(current_area_folder + str(index) + ".tscn")
 	var instance = room.instantiate()
+	
+	if data.has(str(index)):
+		instance.room_data = data[str(index)]
+	
 	instance.index = index
-	instance.position = current_room.position + room_size * direction_from_current_room
+	
+	# Connect to rooms signals
+	instance.pickup_collected.connect(_on_room_pickup_collected)
+	
+	if direction_from_current_room != Vector2(0, 0):
+		instance.position = current_room.position + room_size * direction_from_current_room
+	
 	add_child(instance)	
 	return instance
+
+func _on_save_data_changed(save_data):
+	data = save_data["areas"][area_name]
 	
-func _load_starting_room(index: int):
-	var room = load(current_area_folder + str(index) + ".tscn")
-	var instance = room.instantiate()
-	instance.index = index
-	add_child(instance)
-	return instance
+func _on_room_pickup_collected(pickup):
+	pickup_collected.emit(pickup)
+	data[str(current_room_index)][pickup.pickup_name] = false
+	data_changed.emit(data, area_name)

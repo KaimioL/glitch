@@ -33,7 +33,8 @@ health = 1
 position = Vector2(247, 68)
 health = 1
 
-[node name="TempPickup" parent="." index="4" instance=ExtResource("7_ajhpp")]
+[node name="TempPickup" parent="Pickups" index="0" instance=ExtResource("7_ajhpp")]
 position = Vector2(128, 108)
-pickup_name = "temp_pickup"
+pickup_name = "crouch"
+persisting = true
 texture = ExtResource("8_yfhxm")

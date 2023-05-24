@@ -1,10 +1,22 @@
 extends Node
 
+signal data_changed(data)
+
 var data = {
 	"pickups":{
-		"temp_pickup": false,
+		"crouch": false,
+	},
+	"areas": {
+		"test_area": {
+			"4": {
+				"crouch": true
+			}
+		}
 	}
 }
+
+func _ready():
+	load_game()
 
 func _process(delta):
 	if Input.is_action_just_pressed("debug_save"):
@@ -17,7 +29,7 @@ func save_game():
 	var save_nodes = get_tree().get_nodes_in_group("Persist")	
 	var json_string = JSON.stringify(data)	
 	save_game.store_line(json_string)
-		
+	
 func load_game():
 	if not FileAccess.file_exists("user://savegame.save"):
 		print("No save file found")
@@ -37,12 +49,17 @@ func load_game():
 		
 		data = json.get_data()
 		print(data)
-
+		data_changed.emit(data)
+		
 func set_pickup_data(pickup_name, value):
 	data["pickups"][pickup_name] = value
 	
 func get_pickup_data(pickup_name):
 	return data["pickups"][pickup_name]
 
-func _on_player_pickup_collected(pickup_name):
-	set_pickup_data(pickup_name, true)
+func _on_area_data_changed(area_data, current_area):
+	data["areas"][current_area] = area_data
+
+func _on_area_pickup_collected(pickup):
+	data["pickups"][pickup.pickup_name] = true
+	data_changed.emit(data)

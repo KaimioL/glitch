@@ -2,5 +2,6 @@ extends Node2D
 
 @export var index: int
 
-func _ready():
-	pass
+var room_data: Dictionary = {}
+
+signal pickup_collected(pickup)
