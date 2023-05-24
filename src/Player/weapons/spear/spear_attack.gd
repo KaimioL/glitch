@@ -2,14 +2,18 @@ extends Node2D
 
 var _active_frame: bool = false
 
+@export var collision_launch: bool = true
+
 func _process(delta):
-	if(_active_frame):
+	if _active_frame:
 		for hitcheck in $Hitchecks.get_children():
-			if(hitcheck.is_colliding()):
-				if(hitcheck.get_collider().has_method("take_damage")):
+			if hitcheck.is_colliding():
+				if hitcheck.get_collider().has_method("take_damage"):
 					hitcheck.get_collider().take_damage(1)
+					get_parent().play_hit_sound()
 				_active_frame = false
-				get_parent().do_collision_launch(hitcheck.get_collision_normal())
+				if collision_launch:
+					get_parent().do_collision_launch(hitcheck.get_collision_normal())
 				break
 
 func attack() -> void:

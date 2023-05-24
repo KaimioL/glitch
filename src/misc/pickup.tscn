@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b027n65tl8ubv"]
+
+[ext_resource type="Script" path="res://src/misc/pickup.gd" id="1_v8vlo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ysxv4"]
+size = Vector2(8, 8)
+
+[node name="Pickup" type="Node2D"]
+script = ExtResource("1_v8vlo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ysxv4")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

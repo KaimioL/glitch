@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://wrxbkg1jgt4a"]
 
-[ext_resource type="PackedScene" uid="uid://bx4q585nhsx4e" path="res://src/player/weapon.tscn" id="1_5hxmg"]
+[ext_resource type="PackedScene" uid="uid://bmg2m5t3kmart" path="res://src/player/weapon.tscn" id="1_5hxmg"]
 [ext_resource type="Script" path="res://src/player/weapons/spear/spear.gd" id="2_arcp0"]
 [ext_resource type="Script" path="res://src/player/weapons/spear/spear_attack.gd" id="4_p14yv"]
 [ext_resource type="AudioStream" uid="uid://cyhcllk4t63m1" path="res://assets/player/weapons/spear_hit.wav" id="5_xtef2"]
@@ -83,6 +83,7 @@ collide_with_areas = true
 
 [node name="AttackUp" type="Node2D" parent="." index="4"]
 script = ExtResource("4_p14yv")
+collision_launch = false
 
 [node name="Effect" type="Sprite2D" parent="AttackUp" index="0"]
 visible = false

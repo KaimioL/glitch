@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var damage = 1
+@export var damage = 25
 @export var health = 3
 
 func _ready():
@@ -21,4 +21,3 @@ func die():
 func _on_area_entered(area):
 	if(area.has_method("take_damage")):
 		area.take_damage(damage)
-

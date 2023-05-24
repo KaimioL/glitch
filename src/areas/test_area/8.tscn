@@ -1,15 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwkrdafw575c1"]
+[gd_scene load_steps=8 format=3 uid="uid://bgq2ihhjlgsh"]
 
-[ext_resource type="PackedScene" uid="uid://byeoyxkv4q6d2" path="res://src/room.tscn" id="1_hf8cp"]
-[ext_resource type="Shader" path="res://src/palette_swap.gdshader" id="2_ow3tr"]
+[ext_resource type="PackedScene" uid="uid://buhlp6pp2nwx" path="res://src/room.tscn" id="1_hf8cp"]
+[ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="2_kqru6"]
 [ext_resource type="Texture2D" uid="uid://dm2lah6liojwn" path="res://assets/palettes/temp_foreground_pal.png" id="3_m4in4"]
 [ext_resource type="TileSet" uid="uid://dxtpccydgeedi" path="res://src/tiles/temp_tileset.tres" id="4_k6jbj"]
 [ext_resource type="TileSet" uid="uid://b5hjdos5wcvf" path="res://src/tiles/temp_bg_tileset.tres" id="5_qty6t"]
-[ext_resource type="PackedScene" uid="uid://b2e5du1jdrw64" path="res://src/enemies/flier.tscn" id="6_eguxf"]
+[ext_resource type="PackedScene" uid="uid://cu4wfntyxk64p" path="res://src/enemies/flier.tscn" id="6_eguxf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lu2fj"]
 resource_local_to_scene = true
-shader = ExtResource("2_ow3tr")
+shader = ExtResource("2_kqru6")
 shader_parameter/palette = ExtResource("3_m4in4")
 
 [node name="Room" instance=ExtResource("1_hf8cp")]

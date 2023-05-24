@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal took_damage(amount)
+
 @onready var animation_tree:  AnimationTree = $AnimationTree
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var state_machine: CharacterStateMachine = $CharacterStateMachine
@@ -46,7 +48,7 @@ func _process(delta):
 		else:
 			weapon.look_forward()
 		
-		if Input.is_action_pressed("attack"):
+		if Input.is_action_just_pressed("attack"):
 			weapon.shoot()
 	
 func update_animation() -> void:
@@ -129,7 +131,7 @@ func resize_inside_wall_raycasts(s: float) -> void:
 		raycast.position.y += s
 
 func take_damage(amount: int) -> void:
-	$Health.take_damage(amount)
+	took_damage.emit(amount)
 	
 func get_current_health() -> int:
 	return $Health.current_health
@@ -139,6 +141,6 @@ func die() -> void:
 	
 func get_current_state() -> String:
 	return state_machine.state.name
-	
-func _on_health_health_depleted():
-	die()
+
+func get_pickup(pickup_name: String):
+	get_parent().get_node("Save").set_pickup_data(pickup_name, true)

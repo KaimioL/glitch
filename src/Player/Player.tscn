@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://h4ts3jmk7oqi"]
+[gd_scene load_steps=69 format=3 uid="uid://1t4y3ivq1u7w"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_vuwqi"]
 [ext_resource type="Texture2D" uid="uid://kxm3k5uu7w3e" path="res://assets/player/character_crouch_idle.png" id="2_hmmw1"]
@@ -8,11 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://dwfk042ye8qsv" path="res://assets/player/character_air_rise-Sheet.png" id="6_eyecu"]
 [ext_resource type="AudioStream" uid="uid://ctctsbt804chw" path="res://assets/player/sounds/jump_audio.wav" id="7_kp5wv"]
 [ext_resource type="Texture2D" uid="uid://blsalxly2xqdl" path="res://assets/player/character_walk-Sheet.png" id="8_doy2i"]
-[ext_resource type="Shader" path="res://src/palette_swap.gdshader" id="9_eftcn"]
 [ext_resource type="Texture2D" uid="uid://b6fbcupruir2m" path="res://assets/player/character_attack_forward-Sheet.png" id="9_fjiwp"]
 [ext_resource type="Texture2D" uid="uid://cn0thd3rcxpji" path="res://assets/palettes/player_pal.png" id="10_lfl31"]
 [ext_resource type="Texture2D" uid="uid://3pus4qw0nur1" path="res://assets/player/character_death-Sheet.png" id="10_yvvyw"]
 [ext_resource type="Script" path="res://src/player/character_state_machine.gd" id="11_0vxvk"]
+[ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="11_nc6ke"]
 [ext_resource type="Script" path="res://src/player/states/ground.gd" id="13_g5ler"]
 [ext_resource type="AudioStream" uid="uid://doxhrsetc25eh" path="res://assets/player/sounds/crouch_audio.wav" id="14_ef6aq"]
 [ext_resource type="Script" path="res://src/player/states/crouch.gd" id="14_yhdpw"]
@@ -504,13 +504,13 @@ graph_offset = Vector2(0, -45.7708)
 size = Vector2(8, 11)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mllsx"]
-shader = ExtResource("9_eftcn")
+shader = ExtResource("11_nc6ke")
 shader_parameter/palette = ExtResource("10_lfl31")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8045"]
 size = Vector2(8, 11)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 position = Vector2(0, -9)
 collision_layer = 2
 floor_stop_on_slope = false
@@ -524,7 +524,6 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_2hm1b")
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_oc0s6")
 parameters/crouch/blend_position = -0.33648
 parameters/move/blend_position = 0
@@ -537,7 +536,7 @@ shape = SubResource("RectangleShape2D_5t4tb")
 material = SubResource("ShaderMaterial_mllsx")
 position = Vector2(0, 9)
 texture = ExtResource("5_etqph")
-offset = Vector2(0, -16)
+offset = Vector2(0, -8)
 
 [node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "animation_tree", "wall_raycasts")]
 script = ExtResource("11_0vxvk")
@@ -560,7 +559,6 @@ volume_db = 2.506
 
 [node name="Jump" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("16_5ot4g")
-jump_velocity = 330.0
 
 [node name="JumpAudio" type="AudioStreamPlayer" parent="CharacterStateMachine/Jump"]
 stream = ExtResource("7_kp5wv")
@@ -613,7 +611,7 @@ hit_from_inside = true
 
 [node name="InsideWallRayCastRight" type="RayCast2D" parent="InsideWallRayCasts"]
 position = Vector2(4, -2)
-target_position = Vector2(0, 10)
+target_position = Vector2(0, 11)
 hit_from_inside = true
 
 [node name="Spear" parent="." instance=ExtResource("24_uyf1c")]
@@ -632,6 +630,3 @@ player = NodePath("..")
 visible = false
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_r8045")
-disabled = true
-
-[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]

@@ -1,12 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://byeoyxkv4q6d2"]
+[gd_scene load_steps=5 format=3 uid="uid://buhlp6pp2nwx"]
 
 [ext_resource type="Script" path="res://src/room.gd" id="1_7tlif"]
-[ext_resource type="Script" path="res://src/foreground.gd" id="2_b8op0"]
-[ext_resource type="Shader" path="res://src/palette_swap.gdshader" id="2_id4dx"]
+[ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="2_txx4m"]
+[ext_resource type="Script" path="res://src/tiles/foreground.gd" id="3_j7gyv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b8i6n"]
 resource_local_to_scene = true
-shader = ExtResource("2_id4dx")
+shader = ExtResource("2_txx4m")
 
 [node name="Room" type="Node2D"]
 script = ExtResource("1_7tlif")
@@ -14,7 +14,7 @@ script = ExtResource("1_7tlif")
 [node name="Foreground" type="TileMap" parent="."]
 material = SubResource("ShaderMaterial_b8i6n")
 format = 2
-script = ExtResource("2_b8op0")
+script = ExtResource("3_j7gyv")
 
 [node name="Background" type="TileMap" parent="."]
 format = 2

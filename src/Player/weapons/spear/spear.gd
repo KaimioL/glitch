@@ -23,8 +23,9 @@ func start_attack_cooldown() -> void:
 func do_collision_launch(direction: Vector2) -> void:
 	direction.x = -direction.x
 	if(direction.y != 0):
-		$HitSound.play()
 		get_parent().velocity.y = direction.y * collision_launch_power
 	if(direction.x != 0):
-		$HitSound.play()
 		get_parent().velocity.x = -direction.x * collision_launch_power
+
+func play_hit_sound() -> void:
+	$HitSound.play()

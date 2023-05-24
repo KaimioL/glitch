@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://b77g5a7p1o2no"]
+[gd_scene load_steps=7 format=3]
 
-[ext_resource type="PackedScene" uid="uid://byeoyxkv4q6d2" path="res://src/room.tscn" id="1_7lpek"]
-[ext_resource type="Shader" path="res://src/palette_swap.gdshader" id="2_u6jhl"]
+[ext_resource type="PackedScene" uid="uid://cx0etkm6l4dx3" path="res://src/room.tscn" id="1_7lpek"]
+[ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="2_u6jhl"]
 [ext_resource type="Texture2D" uid="uid://dm2lah6liojwn" path="res://assets/palettes/temp_foreground_pal.png" id="3_dnbk0"]
 [ext_resource type="TileSet" uid="uid://dxtpccydgeedi" path="res://src/tiles/temp_tileset.tres" id="4_plt2e"]
 [ext_resource type="TileSet" uid="uid://b5hjdos5wcvf" path="res://src/tiles/temp_bg_tileset.tres" id="5_h6ga8"]

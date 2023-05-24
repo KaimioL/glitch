@@ -1,12 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bx4q585nhsx4e"]
+[gd_scene load_steps=6 format=3 uid="uid://bmg2m5t3kmart"]
 
 [ext_resource type="Script" path="res://src/player/weapon.gd" id="1_3krmj"]
-[ext_resource type="Shader" path="res://src/palette_swap.gdshader" id="2_ujgff"]
+[ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="2_7r7pu"]
 [ext_resource type="Texture2D" uid="uid://cn0thd3rcxpji" path="res://assets/palettes/player_pal.png" id="3_weicr"]
 [ext_resource type="Texture2D" uid="uid://cyi68jph28fhb" path="res://assets/player/weapons/spear.png" id="4_kgs1s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wka2w"]
-shader = ExtResource("2_ujgff")
+shader = ExtResource("2_7r7pu")
 shader_parameter/palette = ExtResource("3_weicr")
 
 [node name="Weapon" type="Node2D"]

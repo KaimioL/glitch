@@ -2,7 +2,7 @@ extends State
 
 class_name JumpState
 
-@export var jump_velocity: float = 1400
+@export var jump_velocity: float = 300
 @export var jump_animation: String = "jump"
 
 func update(delta):

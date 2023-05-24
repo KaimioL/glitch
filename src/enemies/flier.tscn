@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://b2e5du1jdrw64"]
+[gd_scene load_steps=13 format=3 uid="uid://cu4wfntyxk64p"]
 
 [ext_resource type="Script" path="res://src/enemies/flier.gd" id="1_tcyf0"]
-[ext_resource type="Shader" path="res://src/palette_swap.gdshader" id="2_e03rh"]
+[ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="2_ksvje"]
 [ext_resource type="Texture2D" uid="uid://cjpahw4hw7oq1" path="res://assets/palettes/enemy_pal.png" id="3_ospj1"]
 [ext_resource type="Texture2D" uid="uid://quffts477ph8" path="res://assets/enemies/flier-Sheet.png" id="4_24xf5"]
 
@@ -9,7 +9,7 @@
 size = Vector2(9, 12)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p60f4"]
-shader = ExtResource("2_e03rh")
+shader = ExtResource("2_ksvje")
 shader_parameter/palette = ExtResource("3_ospj1")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jur77"]
@@ -70,5 +70,3 @@ sprite_frames = SubResource("SpriteFrames_kdrld")
 animation = &"idle"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -46,7 +46,7 @@ func _load_rooms_around_current_room():
 func _unload_other_rooms(index: int):
 	for _i in get_children():
 		if _i.index != index:
-			remove_child(_i)
+			_i.queue_free()
 		else:
 			current_room = _i
 			
