@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://1t4y3ivq1u7w"]
+[gd_scene load_steps=75 format=3 uid="uid://1t4y3ivq1u7w"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_vuwqi"]
 [ext_resource type="Texture2D" uid="uid://kxm3k5uu7w3e" path="res://assets/player/character_crouch_idle.png" id="2_hmmw1"]
@@ -28,6 +28,7 @@
 [ext_resource type="Script" path="res://src/player/states/hurt.gd" id="24_qv6jm"]
 [ext_resource type="PackedScene" uid="uid://wrxbkg1jgt4a" path="res://src/player/weapons/spear/spear.tscn" id="24_uyf1c"]
 [ext_resource type="Script" path="res://src/player/hurt_box.gd" id="27_sck7p"]
+[ext_resource type="Script" path="res://src/player/weapons.gd" id="28_8dx7w"]
 
 [sub_resource type="Animation" id="Animation_3iklj"]
 length = 0.001
@@ -526,22 +527,6 @@ tracks/0/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_1dxdr"]
-resource_name = "rest"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="Animation" id="Animation_iujbb"]
 resource_name = "flash"
 length = 0.4
@@ -557,6 +542,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_1dxdr"]
+resource_name = "rest"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4arms"]
@@ -677,9 +678,6 @@ position = Vector2(4, -2)
 target_position = Vector2(0, 11)
 hit_from_inside = true
 
-[node name="Spear" parent="." instance=ExtResource("24_uyf1c")]
-position = Vector2(0, 5)
-
 [node name="Health" type="Node" parent="."]
 script = ExtResource("24_0v6hw")
 
@@ -701,6 +699,13 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_4arms")
 }
+
+[node name="Weapons" type="Node2D" parent="."]
+script = ExtResource("28_8dx7w")
+
+[node name="Spear" parent="Weapons" instance=ExtResource("24_uyf1c")]
+visible = false
+position = Vector2(0, 5)
 
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]

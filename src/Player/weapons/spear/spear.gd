@@ -21,10 +21,14 @@ func start_attack_cooldown() -> void:
 	$Cooldown.start()
 	
 func do_collision_launch(direction: Vector2) -> void:
+	var velocity = Vector2()
+	
 	if(direction.y != 0):
-		get_parent().velocity.y = direction.y * collision_launch_power.y
+		velocity.y = direction.y * collision_launch_power.y
 	if(direction.x != 0):
-		get_parent().velocity.x = direction.x * collision_launch_power.x
+		velocity.x = direction.x * collision_launch_power.x
+	
+	get_parent().change_player_velocity(velocity)
 
 func play_hit_sound() -> void:
 	$HitSound.play()

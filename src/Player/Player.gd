@@ -10,7 +10,7 @@ signal pickup_collected(pickup_name)
 @onready var hurt_box: Area2D = $HurtBox
 @onready var wall_raycasts: Node2D = $WallRayCasts
 @onready var inside_wall_raycasts: Node2D = $InsideWallRayCasts
-@onready var weapon: Weapon = $Spear
+@onready var weapons: Node2D = $Weapons
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
 @onready var effects_animation_player: AnimationPlayer = $EffectsAnimationPlayer
 
@@ -45,14 +45,14 @@ func _process(delta):
 	
 	if(state_machine.can_move):
 		if Input.is_action_pressed("up"):
-			weapon.look_up()
+			weapons.look_up()
 		elif Input.is_action_pressed("down") && state_machine.can_aim_down:
-			weapon.look_down()
+			weapons.look_down()
 		else:
-			weapon.look_forward()
+			weapons.look_forward()
 		
 		if Input.is_action_just_pressed("attack"):
-			weapon.shoot()
+			weapons.shoot()
 	
 func update_animation() -> void:
 	animation_tree.set("parameters/move/blend_position", direction.x)
@@ -67,7 +67,7 @@ func update_facing_direction() -> void:
 func flip_character() -> void:
 	if state_machine.can_move:
 		sprite.scale.x *= -1
-		weapon.scale.x *= -1
+		weapons.scale.x *= -1
 		flipped = !flipped
 	
 func update_velocity(delta) -> void:
@@ -135,7 +135,7 @@ func resize_inside_wall_raycasts(s: float) -> void:
 		raycast.position.y += s
 
 func take_damage(amount: int, direction: Vector2) -> void:
-	if invulnerability_timer.is_stopped():
+	if invulnerability_timer.is_stopped() && alive:
 		took_damage.emit(amount)
 		invulnerability_timer.start()
 		effects_animation_player.play("flash")
@@ -153,6 +153,10 @@ func get_pickup(pickup_name: String):
 
 func _on_save_data_changed(data):
 	pickups = data["pickups"]
+	
+	# TEMPORARY JUST FOR THE DEMO
+	if pickups['spear']:
+		weapons.change_weapon("Spear")
 
 func _on_invulnerability_timer_timeout():
 	effects_animation_player.play("rest")

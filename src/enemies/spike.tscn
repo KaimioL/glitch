@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://tx0x6c1xolm6"]
+
+[ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="1_hq67x"]
+[ext_resource type="Texture2D" uid="uid://d3pcjyxxku5yk" path="res://assets/enemies/spike.png" id="1_wb408"]
+[ext_resource type="Texture2D" uid="uid://dm2lah6liojwn" path="res://assets/palettes/temp_foreground_pal.png" id="2_lh12s"]
+[ext_resource type="Script" path="res://src/enemies/spike.gd" id="4_2ugva"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2t1ko"]
+shader = ExtResource("1_hq67x")
+shader_parameter/palette = ExtResource("2_lh12s")
+
+[node name="Spike" type="Sprite2D"]
+material = SubResource("ShaderMaterial_2t1ko")
+texture = ExtResource("1_wb408")
+script = ExtResource("4_2ugva")
+
+[node name="RayCasts" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="RayCasts"]
+position = Vector2(-5, 8)
+target_position = Vector2(0, -5)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="RayCasts"]
+position = Vector2(-1, 8)
+target_position = Vector2(0, -5)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="RayCast2D3" type="RayCast2D" parent="RayCasts"]
+position = Vector2(3, 8)
+target_position = Vector2(0, -5)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="RayCast2D4" type="RayCast2D" parent="RayCasts"]
+position = Vector2(7, 8)
+target_position = Vector2(0, -5)
+collision_mask = 2
+collide_with_areas = true
