@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/misc/pickup.gd" id="1_v8vlo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ysxv4"]
-size = Vector2(8, 8)
+size = Vector2(16, 16)
 
 [node name="Pickup" type="Node2D"]
 script = ExtResource("1_v8vlo")
@@ -11,6 +11,7 @@ script = ExtResource("1_v8vlo")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

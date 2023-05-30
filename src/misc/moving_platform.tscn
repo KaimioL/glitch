@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://bmbdlq1i7klfw"]
+
+[ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="1_jjend"]
+[ext_resource type="Texture2D" uid="uid://dm2lah6liojwn" path="res://assets/palettes/temp_foreground_pal.png" id="2_t08aq"]
+[ext_resource type="Texture2D" uid="uid://vl43wifkvf62" path="res://assets/misc/moving_platform.png" id="3_dthg1"]
+
+[sub_resource type="Animation" id="Animation_bluxk"]
+resource_name = "horizontal"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-32, 0), Vector2(32, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nwbe6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-32, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l7617"]
+_data = {
+"RESET": SubResource("Animation_nwbe6"),
+"horizontal": SubResource("Animation_bluxk")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qffv"]
+size = Vector2(64, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rvgx4"]
+shader = ExtResource("1_jjend")
+shader_parameter/palette = ExtResource("2_t08aq")
+
+[node name="MovingPlatform" type="Node2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "horizontal"
+playback_process_mode = 0
+libraries = {
+"": SubResource("AnimationLibrary_l7617")
+}
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+position = Vector2(-32, 0)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_0qffv")
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
+material = SubResource("ShaderMaterial_rvgx4")
+texture = ExtResource("3_dthg1")

@@ -10,10 +10,14 @@ var data = {
 	"areas": {
 		"test_area": {
 			"5": {
-				"spear": true
+				"spear": true,
+				"star": true
 			},
 			"10": {
-				"crouch": true
+				"crouch": true,
+			},
+			"13": {
+				"star": true,
 			}
 		}
 	}

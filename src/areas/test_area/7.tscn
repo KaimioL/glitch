@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://o4u84kgpnmci"]
+[gd_scene load_steps=9 format=3 uid="uid://o4u84kgpnmci"]
 
 [ext_resource type="PackedScene" uid="uid://glrq8j5e777" path="res://src/room.tscn" id="1_jwmea"]
 [ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="2_k5npq"]
@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://dxtpccydgeedi" path="res://src/tiles/temp_tileset.tres" id="4_cij0j"]
 [ext_resource type="TileSet" uid="uid://b5hjdos5wcvf" path="res://src/tiles/temp_bg_tileset.tres" id="5_ywlr8"]
 [ext_resource type="PackedScene" uid="uid://cu4wfntyxk64p" path="res://src/enemies/flier.tscn" id="6_fuea3"]
+[ext_resource type="PackedScene" uid="uid://5lavr16ip2uq" path="res://src/enemies/slimy.tscn" id="7_rk0vx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2l254"]
 resource_local_to_scene = true
@@ -26,12 +27,15 @@ layer_0/tile_data = PackedInt32Array(0, 1, 0, 65536, 1, 0, 131072, 1, 0, 196608,
 [node name="Flier" parent="." index="2" instance=ExtResource("6_fuea3")]
 position = Vector2(31, 94)
 scale = Vector2(2, 2)
+damage = 25
 
 [node name="Flier2" parent="." index="3" instance=ExtResource("6_fuea3")]
 position = Vector2(161, 175)
 scale = Vector2(3, 3)
-health = 4
+damage = 25
 
-[node name="Flier3" parent="." index="4" instance=ExtResource("6_fuea3")]
-position = Vector2(229, 25)
-scale = Vector2(3, 3)
+[node name="Slimy" parent="." index="5" instance=ExtResource("7_rk0vx")]
+position = Vector2(89, 72)
+
+[node name="Slimy2" parent="." index="6" instance=ExtResource("7_rk0vx")]
+position = Vector2(153, 40)

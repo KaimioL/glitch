@@ -13,6 +13,7 @@ shader_parameter/palette = ExtResource("2_lh12s")
 material = SubResource("ShaderMaterial_2t1ko")
 texture = ExtResource("1_wb408")
 script = ExtResource("4_2ugva")
+damage = 55
 
 [node name="RayCasts" type="Node2D" parent="."]
 

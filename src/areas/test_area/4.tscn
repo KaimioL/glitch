@@ -26,4 +26,4 @@ layer_0/tile_data = PackedInt32Array(65550, 1, 0, 65549, 1, 0, 65548, 1, 0, 6554
 [node name="Flier" parent="." index="2" instance=ExtResource("6_jq4hu")]
 position = Vector2(23, 183)
 scale = Vector2(3, 3)
-health = 1
+damage = 25

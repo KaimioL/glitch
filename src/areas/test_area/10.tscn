@@ -27,5 +27,8 @@ layer_0/tile_data = PackedInt32Array(15, 1, 0, 14, 1, 0, 13, 1, 0, 12, 1, 0, 11,
 [node name="Pickup" parent="Pickups" index="0" instance=ExtResource("6_57cxr")]
 position = Vector2(104, 156)
 pickup_name = "crouch"
-persisting = true
 texture = ExtResource("7_g07cj")
+persisting = true
+has_pickup_pause = true
+pickup_pause_text = "YOU GOT MORPH BALL
+PRESS DOWN TO CROUCH"

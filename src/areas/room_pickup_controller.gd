@@ -17,4 +17,5 @@ func _pickup_collected(pickup):
 	if(pickup.persisting):
 		room.pickup_collected.emit(pickup)
 		
+func _pickup_terminated(pickup):
 	pickup.queue_free()

@@ -1,8 +1,11 @@
 extends Node2D
 
 @export var pickup_name: String
-@export var persisting: bool = false
 @export var texture: CompressedTexture2D
+
+@export var persisting: bool = false
+@export var has_pickup_pause: bool = false
+@export_multiline var pickup_pause_text: String = ""
 
 signal collected(pickup)
 
@@ -15,3 +18,6 @@ func _on_area_2d_body_entered(body):
 
 func _get_pickup(player):
 	collected.emit(self)
+
+func terminate():
+	queue_free()

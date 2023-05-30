@@ -59,6 +59,7 @@ animations = [{
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_tcyf0")
+damage = 35
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)
