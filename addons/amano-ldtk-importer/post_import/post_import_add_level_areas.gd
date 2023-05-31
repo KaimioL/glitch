@@ -5,6 +5,8 @@ var level_area_padding := Vector2i(0, 0)
 var level_area_collision_layer := 0
 var level_area_opacity := 0.1
 
+var room_script = preload("res://src/room.gd")
+
 func post_import(level: Node2D) -> Node2D:
 	var level_fields :Dictionary = level.get_meta("LDtk_level_fields")
 	var level_data :Dictionary = level.get_meta("LDtk_raw_data")
@@ -15,6 +17,7 @@ func post_import(level: Node2D) -> Node2D:
 		"level_area_opacity": level_area_opacity
 	})
 	level.add_child(level_area)
+	level.script = room_script
 	return level
 
 
@@ -28,7 +31,7 @@ static func get_level_area(
 	var level_extents = (level_size / 2) + options.level_area_padding
 	var area_collision_layer = options.level_area_collision_layer
 
-	level_area.name = "Level Area"
+	level_area.name = "LevelArea"
 
 	level_area.position.x = level_extents.x
 	level_area.position.y = level_extents.y
@@ -36,7 +39,7 @@ static func get_level_area(
 	level_area.collision_mask = 0
 
 	var level_area_shape = CollisionShape2D.new()
-	level_area_shape.name = "Level Area Collission Shape"
+	level_area_shape.name = "LevelAreaCollissionShape"
 	level_area_shape.shape = RectangleShape2D.new()
 	level_area_shape.shape.extents = level_extents
 

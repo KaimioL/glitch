@@ -1,17 +1,241 @@
 [gd_scene load_steps=17 format=3 uid="uid://86syh0vjxp2r"]
 
 [ext_resource type="PackedScene" uid="uid://1t4y3ivq1u7w" path="res://src/player/player.tscn" id="1_e05le"]
-[ext_resource type="Script" path="res://src/camera/camera_2d.gd" id="2_cd324"]
 [ext_resource type="AudioStream" uid="uid://b3d0prk4qlltt" path="res://assets/sounds/victory.wav" id="3_db6f6"]
 [ext_resource type="AudioStream" uid="uid://cbxshga06ucbc" path="res://assets/sounds/music.wav" id="4_1bksf"]
-[ext_resource type="Shader" path="res://src/camera/camera.gdshader" id="5_hdqxr"]
-[ext_resource type="Script" path="res://src/areas/area.gd" id="6_q62i1"]
-[ext_resource type="Script" path="res://src/misc/hud_controller.gd" id="6_r8jht"]
 [ext_resource type="FontFile" uid="uid://byttc0mskf7ck" path="res://assets/fonts/DungeonFont.ttf" id="9_rnqai"]
 [ext_resource type="FontFile" uid="uid://iwfkhkd0cbfa" path="res://assets/fonts/m3x6.ttf" id="10_0va6d"]
-[ext_resource type="Script" path="res://src/game_state.gd" id="10_7qfje"]
-[ext_resource type="Script" path="res://src/data/save_game.gd" id="11_lek4b"]
 [ext_resource type="AudioStream" uid="uid://gdk1e1ujlvb7" path="res://assets/sounds/pickup_fanfare.wav" id="11_u6dwb"]
+
+[sub_resource type="GDScript" id="GDScript_ujt8a"]
+script/source = "extends Camera2D
+
+@export var player: CharacterBody2D
+@export var area: Node
+
+@onready var player_grid_pos = get_player_grid_pos()
+
+var window_size = Vector2(256, 224)
+
+func _ready():
+	$Music.play()
+	
+	var canvas_transform = get_viewport().get_canvas_transform()
+	canvas_transform[2] = player_grid_pos * window_size
+
+func _process(delta):
+	update_camera()
+	
+func get_player_grid_pos():
+	var pos = player.get_position()
+	var x = floor(pos.x / window_size.x)
+	var y = floor(pos.y / window_size.y)
+	
+	return Vector2(x, y)
+	
+func update_camera():
+	var new_player_grid_pos = get_player_grid_pos()
+	var transition_direction = new_player_grid_pos - player_grid_pos
+	if new_player_grid_pos != player_grid_pos:
+		area.change_room(transition_direction)
+		player_grid_pos = new_player_grid_pos
+#		if(player_grid_pos == Vector2(3, 1)):
+#			$VictoryFanfare.play()
+#			$RichTextLabel.visible = true
+		position = player_grid_pos * window_size
+	
+	
+"
+
+[sub_resource type="GDScript" id="GDScript_l53cv"]
+script/source = "extends Node
+
+const areas_folder: String = \"res://src/areas/\"
+
+@export var width:  int = 0
+@export var height: int = 0
+@export var room_size: Vector2 = Vector2(256,224)
+
+@export var starting_room: Vector2i
+@export var area_name: String
+
+var current_area_folder: String
+var current_room_index: int = 0
+var current_room_coords: Vector2i
+var current_room
+
+var data: Dictionary
+
+signal data_changed(data, current_area)
+signal pickup_collected(pickup)
+
+func _ready():
+	current_area_folder = areas_folder + area_name + \"/\"
+	current_room = _load_room(_get_room_index_from_coordinates(starting_room))
+	current_room.position = Vector2(0, 0)
+	_load_rooms_around_current_room()
+
+func change_room(direction: Vector2i):
+	current_room_index = _get_room_index_from_coordinates(current_room_coords + direction)
+	current_room_coords = current_room_coords + direction
+	_unload_other_rooms(current_room_index)
+	print(current_room)
+	_load_rooms_around_current_room()
+	
+	# TEMPORARY I JUST WANNA SLEEP
+	if current_room_index == 2:
+		current_room.get_node(\"Node\").play()
+
+func _get_room_index_from_coordinates(coords: Vector2i) -> int:
+	coords = _get_absolute_coordinates(coords)
+	return coords.x + width * coords.y
+
+func _get_room_coordinates(index: int) -> Vector2i:
+	return Vector2i(index % height, index / width)
+
+func _get_absolute_coordinates(coords: Vector2i) -> Vector2i:
+	return Vector2i(fposmod(coords.x,width), fposmod(coords.y,height))
+
+func _load_rooms_around_current_room():
+	for x in [1, -1]:
+		_load_room(_get_room_index_from_coordinates(current_room_coords + Vector2i(x, 0)), Vector2(x, 0))
+	for y in [1, -1]:
+		_load_room(_get_room_index_from_coordinates(current_room_coords + Vector2i(0, y)), Vector2(0, y))
+	
+func _unload_other_rooms(index: int):
+	for _i in get_children():
+		if _i.index != index:
+			_i.queue_free()
+		else:
+			current_room = _i
+			
+func _load_room(index: int, direction_from_current_room: Vector2 = Vector2(0, 0)):
+	var room = load(current_area_folder + str(index) + \".tscn\")
+	var instance = room.instantiate()
+	
+	if data.has(str(index)):
+		instance.room_data = data[str(index)]
+	
+	instance.index = index
+	
+	# Connect to rooms signals
+	instance.pickup_collected.connect(_on_room_pickup_collected)
+	
+	if direction_from_current_room != Vector2(0, 0):
+		instance.position = current_room.position + room_size * direction_from_current_room
+	
+	add_child(instance)	
+	return instance
+
+func _on_save_data_changed(save_data):
+	data = save_data[\"areas\"][area_name]
+	
+func _on_room_pickup_collected(pickup):
+	pickup_collected.emit(pickup)
+	data[str(current_room_index)][pickup.pickup_name] = false
+	data_changed.emit(data, area_name)
+"
+
+[sub_resource type="GDScript" id="GDScript_vax6c"]
+script/source = "extends CanvasLayer
+
+var hex_decimals = [\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"A\", \"B\", \"C\", \"D\", \"E\", \"F\"]
+
+func _on_game_state_health_changed(old_amount, current_amount):
+	$Health.text = _int_to_hex(current_amount)
+	
+	if current_amount < 20:
+		$LowHealthEffect.visible = true
+
+	if current_amount < 0:
+		$GameOverScreen.visible = true
+		$Health.text = \"ERROR\"
+
+func _int_to_hex(i: int) -> String:
+	return hex_decimals[i/16] + hex_decimals[i%16]
+
+func _on_game_state_pickup_pause_started(pickup_text):
+	$PickupText.text = pickup_text
+	$PickupText.visible = true
+
+func _on_game_state_pickup_pause_ended():
+	$PickupText.visible = false
+"
+
+[sub_resource type="Shader" id="Shader_a587i"]
+code = "shader_type canvas_item;
+uniform sampler2D iChannel1;
+uniform sampler2D iChannel0: hint_screen_texture, filter_linear_mipmap;
+
+
+float rand(float n){return fract(sin(n) * 43758.5453123);}
+
+float noise(float p){
+	float fl = floor(p);
+    float fc = fract(p);
+	return mix(rand(fl), rand(fl + 1.0), fc);
+}
+
+float blockyNoise(vec2 uv, float threshold, float scale, float seed)
+{
+	float scroll = floor(sin(11.0 *  TIME) + sin(TIME) ) * 0.77;
+    vec2 noiseUV = uv.yy / scale + scroll;
+    float noise2 = texture(iChannel1, noiseUV).r;
+    
+    float id = floor( noise2 * 20.0);
+    id = noise(id + seed) - 0.5;
+    
+  
+    if ( abs(id) > threshold )
+        id = 0.0;
+
+	return id;
+}
+
+
+void fragment() {
+
+    
+    float rgbIntesnsity = 0.1 + 0.1 * sin(TIME* 3.7);
+    float displaceIntesnsity = 0.2 +  0.3 * pow( sin(TIME * 1.2), 5.0);
+    float interlaceIntesnsity = 0.01;
+    float dropoutIntensity = 0.1;
+
+    
+    vec2 uv = FRAGCOORD.xy/(1.0/SCREEN_PIXEL_SIZE).xy;
+
+	float displace = blockyNoise(uv + vec2(uv.y, 0.0), displaceIntesnsity, 25.0, 66.6);
+    displace *= blockyNoise(uv.yx + vec2(0.0, uv.x), displaceIntesnsity, 111.0, 13.7);
+    
+    uv.x += displace ;
+    
+    vec2 offs = 0.1 * vec2(blockyNoise(uv.xy + vec2(uv.y, 0.0), rgbIntesnsity, 65.0, 341.0), 0.0);
+    
+    float colr = texture(iChannel0, uv-offs).r;
+	float colg = texture(iChannel0, uv).g;
+    float colb = texture(iChannel0, uv +offs).b;
+
+    
+    float line = fract(FRAGCOORD.xy.y / 3.0);
+	vec3 mask = vec3(3.0, 0.0, 0.0);
+		if (line > 0.333)
+			mask = vec3(0.0, 3.0, 0.0);
+		if (line > 0.666)
+			mask = vec3(0.0, 0.0, 3.0);
+    
+    
+	float maskNoise = blockyNoise(uv, interlaceIntesnsity, 90.0, TIME) * max(displace, offs.x);
+    
+    maskNoise = 1.0 - maskNoise;
+    if ( maskNoise == 1.0)
+        mask = vec3(1.0);
+    
+    float dropout = blockyNoise(uv, dropoutIntensity, 11.0, TIME) * blockyNoise(uv.yx, dropoutIntensity, 90.0, TIME);
+    mask *= (1.0 - 5.0 * dropout);
+	
+    
+    COLOR = vec4(mask * vec3(colr, colg, colb), 1.0);
+}"
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_8ursv"]
 frequency = 0.076
@@ -20,12 +244,134 @@ frequency = 0.076
 noise = SubResource("FastNoiseLite_8ursv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_asfis"]
-shader = ExtResource("5_hdqxr")
+shader = SubResource("Shader_a587i")
 shader_parameter/iChannel1 = SubResource("NoiseTexture2D_1iu2n")
 
 [sub_resource type="Theme" id="Theme_sfj8c"]
 default_font = ExtResource("9_rnqai")
 default_font_size = 51
+
+[sub_resource type="GDScript" id="GDScript_2e7d5"]
+script/source = "extends Node
+
+signal health_changed(old_amount, current_amount)
+
+@export var max_health = 255
+@export var player: Node
+
+var current_health
+
+signal pickup_collected(pickup)
+signal pickup_pause_started(pickup_text)
+signal pickup_pause_ended
+
+func _ready():
+	current_health = max_health
+	health_changed.emit(0, current_health)
+
+func _process(delta):
+	pass
+
+func _on_player_took_damage(amount):
+	_change_current_health(-amount)
+	if(current_health < 0):
+		player.die()
+		
+func _change_current_health(amount):
+	var old_health = current_health
+	current_health += amount
+	health_changed.emit(old_health, current_health)
+
+func _on_area_pickup_collected(pickup):
+	pickup_collected.emit(pickup)
+	if pickup.has_pickup_pause == true:
+		get_tree().paused = true
+		$PickupPauseTimer.start()
+		$PickupFanfare.play()
+		pickup_pause_started.emit(pickup.pickup_pause_text)
+		
+		await $PickupPauseTimer.timeout
+		get_tree().paused = false
+		pickup_pause_ended.emit()
+		pickup.terminate()
+"
+
+[sub_resource type="GDScript" id="GDScript_e4vo6"]
+script/source = "extends Node
+
+signal data_changed(data)
+
+var data = {
+	\"pickups\":{
+		\"crouch\": false,
+		\"spear\": false,
+	},
+	\"areas\": {
+		\"test_area\": {
+			\"5\": {
+				\"spear\": true,
+				\"star\": true
+			},
+			\"10\": {
+				\"crouch\": true,
+			},
+			\"13\": {
+				\"star\": true,
+			}
+		}
+	}
+}
+
+func _ready():
+	save_game()
+	load_game()
+
+func _process(delta):
+	if Input.is_action_just_pressed(\"debug_save\"):
+		save_game()
+	if Input.is_action_just_pressed(\"debug_load\"):
+		load_game()
+
+func save_game():
+	var save_game = FileAccess.open(\"user://savegame.save\", FileAccess.WRITE)
+	var save_nodes = get_tree().get_nodes_in_group(\"Persist\")	
+	var json_string = JSON.stringify(data)	
+	save_game.store_line(json_string)
+	
+func load_game():
+	if not FileAccess.file_exists(\"user://savegame.save\"):
+		print(\"No save file found\")
+		return
+		
+	var save_game = FileAccess.open(\"user://savegame.save\", FileAccess.READ)
+	while save_game.get_position() < save_game.get_length():
+		var json_string = save_game.get_line()
+		
+		# Helper class to interact with json
+		var json = JSON.new()
+		
+		var parse_result = json.parse(json_string)
+		if not parse_result == OK:
+			print(\"JSON Parse Error: \", json.get_error_message(), \" in \", json_string, \" at line \", json.get_error_line())
+			continue
+		
+		data = json.get_data()
+		print(data)
+		data_changed.emit(data)
+		
+func set_pickup_data(pickup_name, value):
+	data[\"pickups\"][pickup_name] = value
+	
+func get_pickup_data(pickup_name):
+	return data[\"pickups\"][pickup_name]
+
+func _on_area_data_changed(area_data, current_area):
+	data[\"areas\"][current_area] = area_data
+
+func _on_area_pickup_collected(pickup):
+	data[\"pickups\"][pickup.pickup_name] = true
+	data_changed.emit(data)
+"
 
 [node name="Node2D" type="Node2D"]
 process_mode = 3
@@ -36,7 +382,7 @@ position = Vector2(70, 195)
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player", "area")]
 anchor_mode = 0
-script = ExtResource("2_cd324")
+script = SubResource("GDScript_ujt8a")
 player = NodePath("../Player")
 area = NodePath("../Area")
 
@@ -65,13 +411,13 @@ fit_content = true
 
 [node name="Area" type="Node" parent="."]
 process_mode = 1
-script = ExtResource("6_q62i1")
+script = SubResource("GDScript_l53cv")
 width = 3
 height = 5
 area_name = "test_area"
 
 [node name="HUD" type="CanvasLayer" parent="."]
-script = ExtResource("6_r8jht")
+script = SubResource("GDScript_vax6c")
 
 [node name="LowHealthEffect" type="ColorRect" parent="HUD"]
 visible = false
@@ -131,7 +477,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GameState" type="Node" parent="." node_paths=PackedStringArray("player")]
-script = ExtResource("10_7qfje")
+script = SubResource("GDScript_2e7d5")
 player = NodePath("../Player")
 
 [node name="PickupPauseTimer" type="Timer" parent="GameState"]
@@ -142,7 +488,7 @@ one_shot = true
 stream = ExtResource("11_u6dwb")
 
 [node name="Save" type="Node" parent="."]
-script = ExtResource("11_lek4b")
+script = SubResource("GDScript_e4vo6")
 
 [connection signal="pickup_collected" from="Player" to="Save" method="_on_player_pickup_collected"]
 [connection signal="took_damage" from="Player" to="GameState" method="_on_player_took_damage"]

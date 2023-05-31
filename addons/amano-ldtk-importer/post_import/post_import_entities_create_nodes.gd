@@ -41,6 +41,10 @@ func post_import(entity_layer: Node2D) -> Node2D:
 			_:
 				if entity_def.tags.has("Enemy"):
 					node = load(str("res://src/enemies/" + entity_def.identifier.to_lower() + ".tscn")).instantiate()
+				else:
+					node = Node.new()
+#				if entity_def.tags.has("Player"):
+#					node = load(str("res://src/player/player.tscn")).instantiate()
 
 		if entity_def.identifier == "Labels":
 			var label := Label.new()

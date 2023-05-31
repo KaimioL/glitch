@@ -14,11 +14,14 @@ signal pickup_collected(pickup_name)
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
 @onready var effects_animation_player: AnimationPlayer = $EffectsAnimationPlayer
 
+@export var size: Vector2 = Vector2(8, 11)
+
 var direction: Vector2
 var flipped: bool = false
 var crouching: bool = false
 var alive = true
 
+var current_room
 var previous_direction: float = 0
 var starting_pos: Vector2
 var pickups
@@ -39,6 +42,7 @@ func _physics_process(delta):
 	update_animation()
 
 func _process(delta):
+	_check_out_of_bounds()
 	# Respawn for debugging
 	if Input.is_action_pressed("debug_spawn"):
 		position = starting_pos	
@@ -151,6 +155,18 @@ func get_current_state() -> String:
 func get_pickup(pickup_name: String):
 	pickup_collected.emit(pickup_name)
 
+func _check_out_of_bounds():
+	# Make levels wrap around to prevent going out of bounds
+	
+	if position.x < current_room.position.x:
+		position.x += current_room.get_room_size().x
+	elif position.x > current_room.position.x + current_room.get_room_size().x:
+		position.x -= current_room.get_room_size().x
+	elif position.y < current_room.position.y:
+		position.y += current_room.get_room_size().y
+	elif position.y > current_room.position.y + current_room.get_room_size().y:
+		position.y -= current_room.get_room_size().y
+
 func _on_save_data_changed(data):
 	pickups = data["pickups"]
 	
@@ -160,3 +176,14 @@ func _on_save_data_changed(data):
 
 func _on_invulnerability_timer_timeout():
 	effects_animation_player.play("rest")
+
+func _on_room_controller_room_changed(room):
+	current_room = room
+	_set_camera_boundaries(room.position.y, room.position.y + room.get_room_size().y, room.position.x, room.position.x + room.get_room_size().x)
+	
+func _set_camera_boundaries(top, bottom, left, right):
+	var camera = $Camera2D
+	camera.limit_top = top
+	camera.limit_bottom = bottom
+	camera.limit_left = left
+	camera.limit_right = right

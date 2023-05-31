@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://cn0thd3rcxpji" path="res://assets/palettes/player_pal.png" id="10_lfl31"]
 [ext_resource type="Texture2D" uid="uid://3pus4qw0nur1" path="res://assets/player/character_death-Sheet.png" id="10_yvvyw"]
 [ext_resource type="Script" path="res://src/player/character_state_machine.gd" id="11_0vxvk"]
-[ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="11_nc6ke"]
 [ext_resource type="Script" path="res://src/player/states/ground.gd" id="13_g5ler"]
 [ext_resource type="AudioStream" uid="uid://doxhrsetc25eh" path="res://assets/player/sounds/crouch_audio.wav" id="14_ef6aq"]
 [ext_resource type="Script" path="res://src/player/states/crouch.gd" id="14_yhdpw"]
@@ -505,8 +504,22 @@ graph_offset = Vector2(0, -45.7708)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5t4tb"]
 size = Vector2(8, 11)
 
+[sub_resource type="Shader" id="Shader_jhuij"]
+code = "shader_type canvas_item;
+
+uniform sampler2D palette;
+
+void fragment() {
+	vec4 rgba = texture(TEXTURE, UV);
+	vec4 final_color = texture(palette, vec2(rgba.r, rgba.g));	
+	final_color.a = rgba.a;
+	
+	COLOR = final_color;
+}
+"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mllsx"]
-shader = ExtResource("11_nc6ke")
+shader = SubResource("Shader_jhuij")
 shader_parameter/palette = ExtResource("10_lfl31")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8045"]
@@ -707,6 +720,11 @@ script = ExtResource("28_8dx7w")
 [node name="Spear" parent="Weapons" instance=ExtResource("24_uyf1c")]
 visible = false
 position = Vector2(0, 5)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]

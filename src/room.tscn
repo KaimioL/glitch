@@ -1,25 +1,78 @@
 [gd_scene load_steps=6 format=3 uid="uid://glrq8j5e777"]
 
-[ext_resource type="Script" path="res://src/room.gd" id="1_7tlif"]
-[ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="2_txx4m"]
-[ext_resource type="Script" path="res://src/tiles/foreground.gd" id="3_j7gyv"]
-[ext_resource type="Script" path="res://src/areas/room_pickup_controller.gd" id="4_2cy8p"]
+[sub_resource type="GDScript" id="GDScript_aens8"]
+script/source = "extends Node2D
+
+@export var index: int
+
+var room_data: Dictionary = {}
+
+signal pickup_collected(pickup)
+"
+
+[sub_resource type="Shader" id="Shader_jhuij"]
+code = "shader_type canvas_item;
+
+uniform sampler2D palette;
+
+void fragment() {
+	vec4 rgba = texture(TEXTURE, UV);
+	vec4 final_color = texture(palette, vec2(rgba.r, rgba.g));	
+	final_color.a = rgba.a;
+	
+	COLOR = final_color;
+}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b8i6n"]
 resource_local_to_scene = true
-shader = ExtResource("2_txx4m")
+shader = SubResource("Shader_jhuij")
+
+[sub_resource type="GDScript" id="GDScript_7me6s"]
+script/source = "extends TileMap
+
+var img = preload(\"res://assets/palettes/temp_foreground_pal.png\")
+
+func _ready():
+#	material.set_shader_parameter(\"palette\", img)
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_ucad8"]
+script/source = "extends Node2D
+
+@onready var room = get_parent()
+
+func _ready():
+	for pickup in get_children():
+		
+		# Connect to persisting pickups
+		pickup.collected.connect(_pickup_collected)
+		
+		# Remove pickups which are false in room data
+		for pickup_name in room.room_data.keys():
+			if pickup.pickup_name == pickup_name && !room.room_data[pickup_name]:
+				pickup.queue_free()
+	
+func _pickup_collected(pickup):
+	if(pickup.persisting):
+		room.pickup_collected.emit(pickup)
+		
+func _pickup_terminated(pickup):
+	pickup.queue_free()
+"
 
 [node name="Room" type="Node2D"]
-script = ExtResource("1_7tlif")
+script = SubResource("GDScript_aens8")
 
 [node name="Foreground" type="TileMap" parent="."]
 material = SubResource("ShaderMaterial_b8i6n")
 format = 2
-script = ExtResource("3_j7gyv")
+script = SubResource("GDScript_7me6s")
 
 [node name="Background" type="TileMap" parent="."]
 format = 2
 layer_0/z_index = -1
 
 [node name="Pickups" type="Node2D" parent="."]
-script = ExtResource("4_2cy8p")
+script = SubResource("GDScript_ucad8")

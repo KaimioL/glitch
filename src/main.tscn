@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpxvpbvfwls14"]
+
+[ext_resource type="Script" path="res://src/areas/room_controller.gd" id="1_h0263"]
+[ext_resource type="PackedScene" uid="uid://1t4y3ivq1u7w" path="res://src/player/player.tscn" id="2_xrdnq"]
+
+[node name="Main" type="Node2D"]
+
+[node name="RoomController" type="Node2D" parent="."]
+script = ExtResource("1_h0263")
+
+[node name="Player" parent="." instance=ExtResource("2_xrdnq")]
+position = Vector2(73, 176)
+
+[connection signal="room_changed" from="RoomController" to="Player" method="_on_room_controller_room_changed"]
