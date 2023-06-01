@@ -40,12 +40,15 @@ func post_import(entity_layer: Node2D) -> Node2D:
 				node = Marker2D.new()
 			_:
 				if entity_def.tags.has("Enemy"):
-					node = load(str("res://src/enemies/" + entity_def.identifier.to_lower() + ".tscn")).instantiate()
+					node = _create_enemy_node(entity_def)
+#					node = load(str("res://src/enemies/" + entity_def.identifier.to_lower() + ".tscn")).instantiate()
+				elif entity_def.tags.has("Door"):
+					node = _create_door_node(entity_def)
 				else:
 					node = Node.new()
 #				if entity_def.tags.has("Player"):
 #					node = load(str("res://src/player/player.tscn")).instantiate()
-
+		
 		if entity_def.identifier == "Labels":
 			var label := Label.new()
 			label.label_settings = label_settings
@@ -64,3 +67,17 @@ func post_import(entity_layer: Node2D) -> Node2D:
 		entity_layer.add_child(node)
 
 	return entity_layer
+
+func _create_enemy_node(entity_def):
+	var enemy = load(str("res://src/enemies/" + entity_def.identifier.to_lower() + ".tscn")).instantiate()
+	return enemy
+	
+func _create_door_node(entity_def):
+	var door = load("res://src/misc/door.tscn").instantiate()
+	match entity_def.identifier:
+		"DoorRight":
+			door.direction = 0
+		"DoorLeft":
+			door.direction = 1
+	
+	return door

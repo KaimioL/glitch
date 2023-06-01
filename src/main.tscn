@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpxvpbvfwls14"]
+[gd_scene load_steps=6 format=3 uid="uid://bpxvpbvfwls14"]
 
 [ext_resource type="Script" path="res://src/areas/room_controller.gd" id="1_h0263"]
 [ext_resource type="PackedScene" uid="uid://1t4y3ivq1u7w" path="res://src/player/player.tscn" id="2_xrdnq"]
+[ext_resource type="Script" path="res://src/game_state.gd" id="3_a2uju"]
+[ext_resource type="PackedScene" uid="uid://f83nmxc6vmap" path="res://src/misc/hud.tscn" id="4_olbji"]
+[ext_resource type="Script" path="res://src/data/save_game.gd" id="5_fn756"]
 
 [node name="Main" type="Node2D"]
 
@@ -11,4 +14,20 @@ script = ExtResource("1_h0263")
 [node name="Player" parent="." instance=ExtResource("2_xrdnq")]
 position = Vector2(73, 176)
 
+[node name="GameState" type="Node" parent="."]
+script = ExtResource("3_a2uju")
+
+[node name="PickupPauseTimer" type="Timer" parent="GameState"]
+
+[node name="HUD" parent="." instance=ExtResource("4_olbji")]
+
+[node name="Save" type="Node" parent="."]
+script = ExtResource("5_fn756")
+
 [connection signal="room_changed" from="RoomController" to="Player" method="_on_room_controller_room_changed"]
+[connection signal="took_damage" from="Player" to="GameState" method="_on_player_took_damage"]
+[connection signal="health_changed" from="GameState" to="HUD" method="_on_game_state_health_changed"]
+[connection signal="pickup_pause_ended" from="GameState" to="HUD" method="_on_game_state_pickup_pause_ended"]
+[connection signal="pickup_pause_started" from="GameState" to="HUD" method="_on_game_state_pickup_pause_started"]
+[connection signal="player_died" from="GameState" to="Player" method="_on_game_state_player_died"]
+[connection signal="data_changed" from="Save" to="Player" method="_on_save_data_changed"]

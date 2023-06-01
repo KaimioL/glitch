@@ -10,6 +10,7 @@ var current_health
 signal pickup_collected(pickup)
 signal pickup_pause_started(pickup_text)
 signal pickup_pause_ended
+signal player_died
 
 func _ready():
 	current_health = max_health
@@ -21,7 +22,7 @@ func _process(delta):
 func _on_player_took_damage(amount):
 	_change_current_health(-amount)
 	if(current_health < 0):
-		player.die()
+		player_died.emit()
 		
 func _change_current_health(amount):
 	var old_health = current_health

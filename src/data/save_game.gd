@@ -4,8 +4,8 @@ signal data_changed(data)
 
 var data = {
 	"pickups":{
-		"crouch": false,
-		"spear": false,
+		"crouch": true,
+		"spear": true,
 	},
 	"areas": {
 		"test_area": {
@@ -72,3 +72,4 @@ func _on_area_data_changed(area_data, current_area):
 func _on_area_pickup_collected(pickup):
 	data["pickups"][pickup.pickup_name] = true
 	data_changed.emit(data)
+	

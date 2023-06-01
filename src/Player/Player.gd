@@ -187,3 +187,6 @@ func _set_camera_boundaries(top, bottom, left, right):
 	camera.limit_bottom = bottom
 	camera.limit_left = left
 	camera.limit_right = right
+
+func _on_game_state_player_died():
+	die()

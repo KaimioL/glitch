@@ -1,7 +1,6 @@
 extends Node
 
 var current_area = preload("res://src/areas/castle/castle.ldtk")
-
 var current_room
 
 signal room_changed(room)
@@ -19,9 +18,10 @@ func _ready():
 			room_changed.emit(current_room)
 		else:
 			_disable_room(room)
-		
+
 func change_room(room_id: int):
-	for room in get_children():
+	for room in $Area.get_children():
+		print(room.name)
 		if room.name == "Room_" + str(room_id):		
 			# Disable previous room and load new room in
 			_disable_room(current_room)

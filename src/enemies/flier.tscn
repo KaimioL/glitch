@@ -1,15 +1,28 @@
 [gd_scene load_steps=13 format=3 uid="uid://cu4wfntyxk64p"]
 
 [ext_resource type="Script" path="res://src/enemies/flier.gd" id="1_tcyf0"]
-[ext_resource type="Shader" path="res://src/misc/palette_swap.gdshader" id="2_ksvje"]
 [ext_resource type="Texture2D" uid="uid://cjpahw4hw7oq1" path="res://assets/palettes/enemy_pal.png" id="3_ospj1"]
 [ext_resource type="Texture2D" uid="uid://quffts477ph8" path="res://assets/enemies/flier-Sheet.png" id="4_24xf5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bspes"]
 size = Vector2(9, 12)
 
+[sub_resource type="Shader" id="Shader_jhuij"]
+code = "shader_type canvas_item;
+
+uniform sampler2D palette;
+
+void fragment() {
+	vec4 rgba = texture(TEXTURE, UV);
+	vec4 final_color = texture(palette, vec2(rgba.r, rgba.g));	
+	final_color.a = rgba.a;
+	
+	COLOR = final_color;
+}
+"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p60f4"]
-shader = ExtResource("2_ksvje")
+shader = SubResource("Shader_jhuij")
 shader_parameter/palette = ExtResource("3_ospj1")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jur77"]
