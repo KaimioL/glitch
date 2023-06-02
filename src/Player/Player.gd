@@ -15,7 +15,7 @@ signal pickup_collected(pickup_name)
 @onready var effects_animation_player: AnimationPlayer = $EffectsAnimationPlayer
 
 @export var size: Vector2 = Vector2(8, 11)
-@export var room_change_position_change: int = 20
+@export var room_change_position_change: int = 55
 
 var direction: Vector2
 var flipped: bool = false

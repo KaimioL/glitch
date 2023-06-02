@@ -3,43 +3,44 @@ extends Node
 var current_area = preload("res://src/areas/castle/castle.ldtk")
 var current_room
 
-var rooms = []
+var rooms = {}
 
 signal room_changed(room, direction)
 
 func _ready():
-	var area_instance = current_area.instantiate()
-	var packed_scene = PackedScene.new()
-	area_instance.name = "Area"
-	add_child(area_instance)
-	# Temporary
-	for room in area_instance.get_children():
-		room = room.duplicate()
-		rooms.push_back(room)
+	var world_instance = current_area.instantiate()
+	
+	# Add world instance as child and iterate through rooms
+	add_child(world_instance)
+	
+	for room in world_instance.get_children():
+		
+		# Save rooms in dictionary as packed scenes
+		var packed_room = PackedScene.new()
+		packed_room.pack(room)
+		rooms[room.name] = packed_room
+		
+		# Temporary for instancing starting room
 		if room.name == "c9cac800-ed50-11ed-a7c2-1f1cdacb1221":
-			_load_room(room)
+			_load_room(packed_room)
 			
 			room_changed.emit(current_room, "")
-	area_instance.queue_free()
-	add_child(current_room)
+	
+	world_instance.queue_free()
 
 func change_room(room_id: String):
-	for room in rooms:
-		if room.name == room_id:		
-			# Disable previous room and load new room in
-#			_disable_room(current_room)
-			_unload_room(current_room)
-			_load_room(room)
-			return
-			
-	print("No room found with given id")
+	var prev_room = current_room
+	_load_room(rooms[room_id])
+	_unload_room(prev_room)
 
-func _load_room(room):
-	current_room = room.duplicate()
+func _load_room(packed_room: PackedScene):
+	# Create new instance of packed room
+	current_room = packed_room.instantiate()
 	current_room.transitioned.connect(_on_room_transitioned)
 	add_child(current_room)
 	
 func _unload_room(room):
+	# Free queue from given room
 	room.queue_free()
 
 func _disable_room(room):

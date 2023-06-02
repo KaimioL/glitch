@@ -31,9 +31,9 @@ func close():
 
 func take_damage(amount: int, direction: Vector2):
 	if is_open:
-		close()
+		play_close_animation()
 	else:
-		open()
+		play_open_animation()
 
 func _on_transition_area_body_entered(body):
 	get_parent().get_parent().transitioned.emit(direction)
