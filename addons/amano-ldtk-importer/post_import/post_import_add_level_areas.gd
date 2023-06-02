@@ -11,6 +11,7 @@ func post_import(level: Node2D) -> Node2D:
 	var level_fields :Dictionary = level.get_meta("LDtk_level_fields")
 	var level_data :Dictionary = level.get_meta("LDtk_raw_data")
 	var source_file :String = level.get_meta("LDtk_source_file")
+	
 	var level_area := get_level_area(level_fields, level_data, {
 		"level_area_padding": level_area_padding,
 		"level_area_collision_layer": level_area_collision_layer,

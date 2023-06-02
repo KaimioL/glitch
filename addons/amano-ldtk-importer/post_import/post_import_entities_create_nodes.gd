@@ -41,7 +41,6 @@ func post_import(entity_layer: Node2D) -> Node2D:
 			_:
 				if entity_def.tags.has("Enemy"):
 					node = _create_enemy_node(entity_def)
-#					node = load(str("res://src/enemies/" + entity_def.identifier.to_lower() + ".tscn")).instantiate()
 				elif entity_def.tags.has("Door"):
 					node = _create_door_node(entity_def)
 				else:
@@ -75,9 +74,9 @@ func _create_enemy_node(entity_def):
 func _create_door_node(entity_def):
 	var door = load("res://src/misc/door.tscn").instantiate()
 	match entity_def.identifier:
-		"DoorRight":
-			door.direction = 0
-		"DoorLeft":
-			door.direction = 1
+		"DoorEast":
+			door.direction = "e"
+		"DoorWest":
+			door.direction = "w"
 	
 	return door
