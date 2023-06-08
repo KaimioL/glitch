@@ -7,10 +7,10 @@ path="res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c.scn"
 
 [deps]
 
-files=["res://src/areas/castle/castle/tilesets/castle-tileset-16x16.res", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_0-.scn", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_1-.scn"]
+files=["res://src/areas/castle/castle/tilesets/castle-tileset-16x16.res", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_0-.scn", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_1-.scn", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_2-.scn", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_3-.scn"]
 
 source_file="res://src/areas/castle/castle.ldtk"
-dest_files=["res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c.scn", "res://src/areas/castle/castle/tilesets/castle-tileset-16x16.res", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_0-.scn", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_1-.scn"]
+dest_files=["res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c.scn", "res://src/areas/castle/castle/tilesets/castle-tileset-16x16.res", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_0-.scn", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_1-.scn", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_2-.scn", "res://.godot/imported/castle.ldtk-1b3b716ca22a534b848a20569814308c-Level_3-.scn"]
 
 [params]
 

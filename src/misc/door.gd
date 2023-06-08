@@ -30,9 +30,7 @@ func close():
 	is_open = false
 
 func take_damage(amount: int, direction: Vector2):
-	if is_open:
-		play_close_animation()
-	else:
+	if not is_open:
 		play_open_animation()
 
 func _on_transition_area_body_entered(body):

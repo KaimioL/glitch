@@ -31,7 +31,7 @@ func _ready():
 func change_room(room_id: String):
 	var prev_room = current_room
 	_load_room(rooms[room_id])
-	_unload_room(prev_room)
+#	_unload_room(prev_room)
 
 func _load_room(packed_room: PackedScene):
 	# Create new instance of packed room
@@ -53,7 +53,8 @@ func _enable_room(room):
 	room.show()
 	
 func _on_room_transitioned(direction):
-#	get_tree().paused = true
-	change_room(current_room.neighbours[direction])
+	var prev_room = current_room	
+	var next_room = rooms[current_room.neighbours[direction]]
+	_load_room(next_room)
 	room_changed.emit(current_room, direction)
-	
+	_unload_room(prev_room)
