@@ -1,12 +1,13 @@
 extends Node2D
 
 @export var direction: String
+@export var target_room: int
 
 var is_open: bool = false
 # Maybe find better solution for checking if door is flipped, probably its because duplicating node doesnt call process and negative scale is not saved after transform
 var is_flipped: bool = false 
 
-signal transitioned(direction)
+signal transitioned(target_room, direction)
 
 func _process(delta):
 	if direction == "w" and not is_flipped:
@@ -34,4 +35,4 @@ func take_damage(amount: int, direction: Vector2):
 		play_open_animation()
 
 func _on_transition_area_body_entered(body):
-	get_parent().get_parent().transitioned.emit(direction)
+	get_parent().get_parent().transitioned.emit(get_meta("entity_data").fields.TargetRoom, direction)

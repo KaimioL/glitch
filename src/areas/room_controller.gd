@@ -21,7 +21,7 @@ func _ready():
 		rooms[room.name] = packed_room
 		
 		# Temporary for instancing starting room
-		if room.name == "c9cac800-ed50-11ed-a7c2-1f1cdacb1221":
+		if room.name == "Level_0":
 			_load_room(packed_room)
 			
 			room_changed.emit(current_room, "")
@@ -52,9 +52,9 @@ func _enable_room(room):
 	room.set_process_mode(PROCESS_MODE_INHERIT)
 	room.show()
 	
-func _on_room_transitioned(direction):
+func _on_room_transitioned(target_room, direction):
 	var prev_room = current_room	
-	var next_room = rooms[current_room.neighbours[direction]]
+	var next_room = rooms["Level_" + str(target_room)]
 	_load_room(next_room)
 	room_changed.emit(current_room, direction)
 	_unload_room(prev_room)

@@ -78,8 +78,12 @@ func _create_door_node(entity_def):
 			door.direction = "e"
 		"DoorWest":
 			door.direction = "w"
+	
 	for field_def in entity_def.fieldDefs:
-		if field_def.identifier == "TargetRoom":
-			door.target_room = 
+		match field_def.identifier:
+			"target_room":
+				door.target_room = field_def
+			_:
+				pass 
 	
 	return door

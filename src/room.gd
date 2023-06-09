@@ -16,7 +16,7 @@ signal transitioned(direction)
 func _ready():
 	var level_data :Dictionary = get_meta("LDtk_raw_data")
 	# Rename level to use iid for neighbours
-	name = level_data.iid
+#	name = level_data.iid
 	for neighbour in level_data.__neighbours:
 		neighbours[neighbour.dir] = neighbour.levelIid
 
