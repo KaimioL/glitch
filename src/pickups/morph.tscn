@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxsmp6x7fhqfy"]
+
+[ext_resource type="PackedScene" uid="uid://b027n65tl8ubv" path="res://src/misc/pickup.tscn" id="1_aoavr"]
+[ext_resource type="Texture2D" uid="uid://cev2ryw7gy5mb" path="res://assets/misc/pickup_temp.png" id="2_w7lg2"]
+
+[node name="Pickup" instance=ExtResource("1_aoavr")]
+pickup_name = "morph"
+texture = ExtResource("2_w7lg2")
+persisting = true
+has_pickup_pause = true
+pickup_pause_text = "YOU GOT MORPH BALL
+PRESS DOWN TO MORPH"

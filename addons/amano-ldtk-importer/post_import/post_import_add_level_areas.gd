@@ -6,6 +6,7 @@ var level_area_collision_layer := 0
 var level_area_opacity := 0.1
 
 var room_script = preload("res://src/room.gd")
+var pickup_controller = preload("res://src/areas/room_pickup_controller.gd")
 
 func post_import(level: Node2D) -> Node2D:
 	var level_fields :Dictionary = level.get_meta("LDtk_level_fields")
@@ -19,6 +20,14 @@ func post_import(level: Node2D) -> Node2D:
 	})
 	level.add_child(level_area)
 	level.script = room_script
+	
+	# Add pickup controller to room
+	var pickup_controller_node = Node2D.new()
+	pickup_controller_node.script = pickup_controller
+	pickup_controller_node.name = "PickupController"
+	
+	level.add_child(pickup_controller_node)
+	
 	return level
 
 

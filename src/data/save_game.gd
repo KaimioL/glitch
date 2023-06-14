@@ -69,7 +69,7 @@ func get_pickup_data(pickup_name):
 func _on_area_data_changed(area_data, current_area):
 	data["areas"][current_area] = area_data
 
-func _on_area_pickup_collected(pickup):
+func _on_room_controller_pickup_collected(pickup):
 	data["pickups"][pickup.pickup_name] = true
 	data_changed.emit(data)
 	

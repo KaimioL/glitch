@@ -11,7 +11,7 @@
 	"iid": "fa6030d0-ed50-11ed-a7c2-452580fca861",
 	"jsonVersion": "1.3.3",
 	"appBuildId": 467698,
-	"nextUid": 300,
+	"nextUid": 301,
 	"identifierStyle": "Capitalize",
 	"toc": [],
 	"worldLayout": "GridVania",
@@ -1930,6 +1930,39 @@
 			"pivotX": 0,
 			"pivotY": 0,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "Morph",
+			"uid": 300,
+			"tags": ["Pickup"],
+			"exportToToc": false,
+			"doc": null,
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#FEAE34",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 260,
+			"tileRenderMode": "FitInside",
+			"tileRect": { "tilesetUid": 260, "x": 160, "y": 0, "w": 16, "h": 16 },
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -2223,6 +2256,20 @@
 							"height": 16,
 							"defUid": 299,
 							"px": [224,208],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Morph",
+							"__grid": [9,6],
+							"__pivot": [0,0],
+							"__tags": ["Pickup"],
+							"__tile": { "tilesetUid": 260, "x": 160, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#FEAE34",
+							"iid": "c4155fc0-ed50-11ed-9945-4bc8efc2e8c1",
+							"width": 16,
+							"height": 16,
+							"defUid": 300,
+							"px": [144,96],
 							"fieldInstances": []
 						}
 					]
@@ -3519,6 +3566,20 @@
 							"height": 16,
 							"defUid": 298,
 							"px": [192,208],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Morph",
+							"__grid": [3,13],
+							"__pivot": [0,0],
+							"__tags": ["Pickup"],
+							"__tile": { "tilesetUid": 260, "x": 160, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#FEAE34",
+							"iid": "17e7c490-ed50-11ed-9945-3b9c8614fdbc",
+							"width": 16,
+							"height": 16,
+							"defUid": 300,
+							"px": [48,208],
 							"fieldInstances": []
 						}
 					]

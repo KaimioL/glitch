@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpxvpbvfwls14"]
+[gd_scene load_steps=7 format=3 uid="uid://bpxvpbvfwls14"]
 
 [ext_resource type="Script" path="res://src/areas/room_controller.gd" id="1_h0263"]
 [ext_resource type="PackedScene" uid="uid://1t4y3ivq1u7w" path="res://src/player/player.tscn" id="2_xrdnq"]
 [ext_resource type="Script" path="res://src/game_state.gd" id="3_a2uju"]
+[ext_resource type="AudioStream" uid="uid://gdk1e1ujlvb7" path="res://assets/sounds/pickup_fanfare.wav" id="4_07xth"]
 [ext_resource type="PackedScene" uid="uid://f83nmxc6vmap" path="res://src/misc/hud.tscn" id="4_olbji"]
 [ext_resource type="Script" path="res://src/data/save_game.gd" id="5_fn756"]
 
@@ -18,12 +19,19 @@ position = Vector2(-78, 126)
 script = ExtResource("3_a2uju")
 
 [node name="PickupPauseTimer" type="Timer" parent="GameState"]
+process_mode = 3
+wait_time = 4.0
+
+[node name="PickupFanfare" type="AudioStreamPlayer" parent="GameState"]
+stream = ExtResource("4_07xth")
 
 [node name="HUD" parent="." instance=ExtResource("4_olbji")]
 
 [node name="Save" type="Node" parent="."]
 script = ExtResource("5_fn756")
 
+[connection signal="pickup_collected" from="RoomController" to="GameState" method="_on_room_controller_pickup_collected"]
+[connection signal="pickup_collected" from="RoomController" to="Save" method="_on_room_controller_pickup_collected"]
 [connection signal="room_changed" from="RoomController" to="Player" method="_on_room_controller_room_changed"]
 [connection signal="took_damage" from="Player" to="GameState" method="_on_player_took_damage"]
 [connection signal="health_changed" from="GameState" to="HUD" method="_on_game_state_health_changed"]

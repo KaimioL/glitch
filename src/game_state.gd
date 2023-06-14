@@ -29,7 +29,7 @@ func _change_current_health(amount):
 	current_health += amount
 	health_changed.emit(old_health, current_health)
 
-func _on_area_pickup_collected(pickup):
+func _on_room_controller_pickup_collected(pickup):
 	pickup_collected.emit(pickup)
 	if pickup.has_pickup_pause == true:
 		get_tree().paused = true

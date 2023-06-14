@@ -31,7 +31,7 @@ func post_import(entity_layer: Node2D) -> Node2D:
 					Vector2(entity_extents.x, -entity_extents.y),
 					Vector2(entity_extents.x, entity_extents.y),
 					Vector2(-entity_extents.x, entity_extents.y),
-				])
+				]) 
 				node.color = entity_data.smart_color
 				if entity_def.hollow:
 					node.invert_enabled = true
@@ -41,8 +41,13 @@ func post_import(entity_layer: Node2D) -> Node2D:
 			_:
 				if entity_def.tags.has("Enemy"):
 					node = _create_enemy_node(entity_def)
+					node.set_meta("type", "enemy")
 				elif entity_def.tags.has("Door"):
 					node = _create_door_node(entity_def)
+					node.set_meta("type", "door")
+				elif entity_def.tags.has("Pickup"):
+					node = _create_pickup_node(entity_def)
+					node.set_meta("type", "pickup")
 				else:
 					node = Node.new()
 #				if entity_def.tags.has("Player"):
@@ -87,3 +92,7 @@ func _create_door_node(entity_def):
 				pass 
 	
 	return door
+	
+func _create_pickup_node(entity_def):
+	var pickup = load(str("res://src/pickups/" + entity_def.identifier.to_lower() + ".tscn")).instantiate()
+	return pickup
